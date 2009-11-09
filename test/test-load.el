@@ -17,7 +17,15 @@
 		  
 		  (setq loaded-file nil)
 		  (assert-equal t (load-relative "load-file2" 'test-load))
-		  (assert-equal "load-file3" loaded-file 'test-load))
+		  (assert-equal "load-file3" loaded-file 'test-load)
+
+		  (setq loaded-file nil)
+		  (setq loaded-file1 nil)
+		  (assert-equal '(t t) 
+				(load-relative '("load-file1" "load-file2")
+					       'test-load))
+		  (assert-equal 't loaded-file1)
+		  (assert-equal "load-file3" loaded-file))
 )
 
 (behave "load-relative")

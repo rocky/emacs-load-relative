@@ -15,14 +15,18 @@ given for that for SYMBOL. For example:
      ((symbol-file symbol))
      (t nil)))
 
-(defun load-relative (file symbol)
+(defun load-relative (file-or-list symbol)
   "Load an Emacs Lisp file relative to some other currently loaded Emacs 
 Lisp file. 
 
-FILE is Emacs Lisp file you want to load, and SYMBOL should a symbol define
-another Emacs Lisp file that you want FILE loaded relative to. If this is
-called inside a `load', then SYMBOL is ignored and `load-file-name' is 
-used instead."
+FILE-OR-LIST is Emacs Lisp either a string or a list of strings
+containing files that you want to loaded. SYMBOL should a symbol
+defined another Emacs Lisp file that you want FILE loaded relative
+to. If this is called inside a `load', then SYMBOL is ignored and
+`load-file-name' is used instead."
+
   (let ((prefix (file-name-directory (or (__FILE__ symbol) "./"))))
-    (load (concat prefix file))))
+    (if (listp file-or-list)
+	(mapcar (lambda(file) (load (concat prefix file))) file-or-list)
+      (load (concat prefix file-or-list)))))
 
