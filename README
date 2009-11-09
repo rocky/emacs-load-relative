@@ -1,0 +1,19 @@
+Here we add two functions load-relative and __FILE__
+
+load-relative(symbol) loads an Emacs Lisp file relative to another
+(presumably currently running) Emacs Lisp file.
+
+Example:
+
+(provide 'foo-bar)
+(load-relative "baz" 'foo-bar)
+
+__FILE__(symbol) returns the file that symbol was defined it, however
+if you are currently running load, that file name is given instead.
+If symbol is not defined and you are not loading a file, then nil is
+returned.
+
+The symbol parameter is an artifact in both load-relative and __FILE__
+that I would like to remove. Right now I don't see how to.
+
+
