@@ -27,6 +27,17 @@ to. If this is called inside a `load', then SYMBOL is ignored and
 
   (let ((prefix (file-name-directory (or (__FILE__ symbol) "./"))))
     (if (listp file-or-list)
-	(mapcar (lambda(file) (load (concat prefix file))) file-or-list)
-      (load (concat prefix file-or-list)))))
+	(mapcar (lambda(file) (load-relative-internal prefix file))
+		file-or-list)
+      (load-relative-internal prefix file-or-list))))
 
+(defun load-relative-internal(directory-prefix file-suffix)
+  "Concatenate DIRECTORY-PREFIX with FILE-SUFFIX and call `load' on the
+expanded file name (via `expand-file-name'"
+  (load (expand-file-name (concat directory-prefix file-suffix))))
+
+(defsubst load-relative-and-provide(file-or-list symbol)
+  "Run `provide' on symbol and then run `load-relative' on
+FILE-OR-LIST."
+  (provide symbol) 
+  (load-relative file-or-list symbol))
