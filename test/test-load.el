@@ -7,6 +7,13 @@
 
 (context "load-relative"
 	 (tag load-relative)
+	 (specify "relative-expand-filename"
+		  (dolist (file-name 
+			   '("load-file1.el" "./load-file1.el" "../test/load-file1.el"))
+		    (assert-equal 
+		     (expand-file-name file-name)
+		     (relative-expand-file-name file-name 'test-load))))
+
 	 (specify "Basic load-relative"
 		  (dolist (file-name 
 			   '("load-file1.el" "./load-file1.el" "../test/load-file1.el"))

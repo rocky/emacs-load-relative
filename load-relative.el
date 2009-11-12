@@ -25,8 +25,21 @@ defined another Emacs Lisp file that you want FILE loaded relative
 to. If this is called inside a `load', then SYMBOL is ignored and
 `load-file-name' is used instead."
 
-  (let ((prefix (file-name-directory (or (__FILE__ symbol) "./"))))
-    (if (listp file-or-list)
-	(mapcar (lambda(file) (load (concat prefix file))) file-or-list)
-      (load (concat prefix file-or-list)))))
+  (if (listp file-or-list)
+      (mapcar (lambda(relative-file) 
+		(load (relative-expand-file-name relative-file symbol)))
+		file-or-list)
+    (load (relative-expand-file-name file-or-list symbol))))
 
+(defun relative-expand-file-name(relative-file symbol)
+  (let ((prefix (file-name-directory (or (__FILE__ symbol) "./"))))
+    (expand-file-name (concat prefix relative-file))))
+
+(defun require-relative (relative-file symbol)
+  "`require' an Emacs Lisp file relative to some other currently loaded Emacs 
+Lisp file."
+  (let ((require-string-name 
+	 (file-name-sans-extension 
+	  (file-name-nondirectory relative-file))))
+    (require (intern require-string-name) 
+	     (relative-expand-file-name relative-file symbol))))
