@@ -33,6 +33,7 @@ to. If this is called inside a `load', then SYMBOL is ignored and
 
 (defun relative-expand-file-name(relative-file symbol)
   (let ((prefix (file-name-directory (or (__FILE__ symbol) "./"))))
+<<<<<<< HEAD:load-relative.el
     (expand-file-name (concat prefix relative-file))))
 
 (defun require-relative (relative-file symbol)
@@ -43,3 +44,20 @@ Lisp file."
 	  (file-name-nondirectory relative-file))))
     (require (intern require-string-name) 
 	     (relative-expand-file-name relative-file symbol))))
+=======
+    (if (listp file-or-list)
+	(mapcar (lambda(file) (load-relative-internal prefix file))
+		file-or-list)
+      (load-relative-internal prefix file-or-list))))
+
+(defun load-relative-internal(directory-prefix file-suffix)
+  "Concatenate DIRECTORY-PREFIX with FILE-SUFFIX and call `load' on the
+expanded file name (via `expand-file-name'"
+  (load (expand-file-name (concat directory-prefix file-suffix))))
+
+(defsubst load-relative-and-provide(file-or-list symbol)
+  "Run `provide' on symbol and then run `load-relative' on
+FILE-OR-LIST."
+  (provide symbol) 
+  (load-relative file-or-list symbol))
+>>>>>>> 4784bc30c4e554d102ce1b0d0b733e414a6b9b8c:load-relative.el

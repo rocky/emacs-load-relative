@@ -141,9 +141,9 @@
 		"unset")))
 	(signal 'behave-spec-failed 
 		(format 
-		 "Context: %s%s\n\tSpecification: %s\n\tExpected: %s\n\tGot:      %s"
+		 "Context: %s%s\n\tExpected: %s\n\tGot:      %s"
 		 context-mess
-		 fail-message spec-desc expected actual))))
+		 fail-message expected actual))))
   t)
 
 (defun assert-t (actual &optional opt-fail-message)

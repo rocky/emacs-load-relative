@@ -1,8 +1,9 @@
 (require 'cl)
+(eval-when-compile (provide 'test-load))
+(provide 'test-load)
 (load-file "./behave.el")
 (load-file "../load-relative.el")
 
-(provide 'test-load)
 (behave-clear-contexts)
 
 (context "load-relative"
