@@ -94,7 +94,7 @@
 (defvar *behave-default-tags* "all")
 
 (defstruct context 
-  (description :type string "Description not set yet")
+  description
   tags 
   (specs '()) ;; list of its specifications stored as closures.
   refreshing-vars)
@@ -141,14 +141,14 @@
 		"unset")))
 	(signal 'behave-spec-failed 
 		(format 
-		 "Context: %s%s\n\tExpected: %s\n\tGot:      %s"
+		 "Context: %s%s\n\tSpecification: %s\n\tExpected: %s\n\tGot:      %s"
 		 context-mess
-		 fail-message expected actual))))
+		 fail-message spec-desc expected actual))))
   t)
 
 (defun assert-t (actual &optional opt-fail-message)
   "expectation is that ACTUAL is t."
-  (assert-nil (not actual)))
+  (assert-nil (not actual) opt-fail-message))
 
 (defun assert-nil (actual &optional opt-fail-message)
   "expectation is that ACTUAL is nil."
