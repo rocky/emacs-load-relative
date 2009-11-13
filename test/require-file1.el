@@ -1,0 +1,1 @@
+(provide 'require-file1)
