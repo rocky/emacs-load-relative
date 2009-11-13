@@ -27,6 +27,8 @@ methods work we will use the file-name value find via
      ((stringp (car-safe current-load-list)) (car current-load-list))
      (load-file-name)     ;; load-like things
      ((buffer-file-name)) ;; eval-like things
+     (#$) ;; Pick up from docstring. Will work when not in the middle
+          ;; of loading.
      (t (symbol-file symbol)) ;; last resort
      ))
 
