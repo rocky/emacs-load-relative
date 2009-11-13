@@ -27,15 +27,23 @@ symbol that has been previously defined if none of the above
 methods work we will use the file-name value find via
 `symbol-file'."
   (cond 
-     ;; lread.c's readevalloop sets the (car current-load-list)
-     ;; load-list via LOADHIST_ATTACH of lisp.h. At least in Emacs
+     ;; lread.c's readevalloop sets (car current-load-list)
+     ;; via macro LOADHIST_ATTACH of lisp.h. At least in Emacs
      ;; 23.0.91 and this code goes back to '93.
      ((stringp (car-safe current-load-list)) (car current-load-list))
-     (load-file-name)     ;; load-like things
-     ((buffer-file-name)) ;; eval-like things
-     (#$) ;; Pick up "name of this file as a string". In contrast to
-          ;; the above, this sometimes works when not in the middle of
-          ;; loading.
+
+     ;; load-like things. 'relative-file-expand' tests in
+     ;; test/test-load.el indicates we should put this ahead of
+     ;; $#.
+     (load-file-name)  
+
+     ;; Pick up "name of this file as a string" which is set on
+     ;; reading and persists. In contrast, load-file-name is set only
+     ;; inside eval. As such, it won't work when not in the middle of
+     ;; loading.
+     (#$) 
+
+     ((buffer-file-name))     ;; eval-like things
      (t (symbol-file symbol)) ;; last resort
      ))
 
