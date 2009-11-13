@@ -1,1 +1,1 @@
-(load-relative "load-file3" 'bogus)
+(load-relative "load-file3")
