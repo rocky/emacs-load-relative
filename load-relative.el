@@ -16,6 +16,12 @@ those cases, we try `buffer-file-name' which is initially
 correct, for eval'd code, but will change and may be wrong if the
 code sets or switches buffers after the initial execution.
 
+Failing the above the next approach we try is to use the value of
+$# - 'the name of this file as a string'. Although it doesn't
+work for eval-like things, it has the advantage that this value
+persists after loading or evaluating a file. So it would be
+suitable if __FILE__ were called from inside a function.
+
 As a last resort, you can pass in SYMBOL which should be some
 symbol that has been previously defined if none of the above
 methods work we will use the file-name value find via
@@ -27,8 +33,9 @@ methods work we will use the file-name value find via
      ((stringp (car-safe current-load-list)) (car current-load-list))
      (load-file-name)     ;; load-like things
      ((buffer-file-name)) ;; eval-like things
-     (#$) ;; Pick up from docstring. Will work when not in the middle
-          ;; of loading.
+     (#$) ;; Pick up "name of this file as a string". In contrast to
+          ;; the above, this sometimes works when not in the middle of
+          ;; loading.
      (t (symbol-file symbol)) ;; last resort
      ))
 
