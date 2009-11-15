@@ -81,3 +81,12 @@ buffer-setting or buffer changing operations."
 	  (file-name-nondirectory relative-file))))
     (require (intern require-string-name) 
 	       (relative-expand-file-name relative-file symbol))))
+
+(defmacro require-relative-list (list)
+  `(progn 
+     (eval-when-compile
+       (require 'cl
+		(dolist (rel-file ,list)
+		  (require-relative rel-file))))
+     (dolist (rel-file ,list)
+       (require-relative rel-file))))

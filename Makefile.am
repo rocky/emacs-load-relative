@@ -14,6 +14,9 @@ check: $(CHECK_FILES)
 test-load.run:
 	(cd $(srcdir)/test && $(EMACS) -batch -Q -l $(@:.run=.el) )
 
+test-require-list.run:
+	(cd $(srcdir)/test && $(EMACS) -batch -Q -l $(@:.run=.el) )
+
 .PHONY: $(CHECK_FILES)
 
 if MAINTAINER_MODE
