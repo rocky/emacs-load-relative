@@ -41,7 +41,7 @@ methods work we will use the file-name value find via
      ;; reading and persists. In contrast, load-file-name is set only
      ;; inside eval. As such, it won't work when not in the middle of
      ;; loading.
-     (#$) 
+     ;; (#$) 
 
      ((buffer-file-name))     ;; eval-like things
      (t (symbol-file symbol)) ;; last resort
@@ -63,14 +63,14 @@ buffer-setting or buffer changing operations."
 		file-or-list)
     (load (relative-expand-file-name file-or-list symbol))))
 
-(defun relative-expand-file-name(relative-file &optional symbol)
+(defun relative-expand-file-name(relative-file &optional opt-file)
   "Expand RELATIVE-FILE relative to the Emacs Lisp code that is in
 the process of being loaded or eval'd."
-  (let ((prefix (file-name-directory 
-		 (or (__FILE__ symbol) default-directory))))
+  (let* ((file (or opt-file (__FILE__) default-directory))
+	 (prefix (file-name-directory file)))
     (expand-file-name (concat prefix relative-file))))
 
-(defun require-relative (relative-file &optional symbol)
+(defun require-relative (relative-file &optional opt-file)
   "Run `require' on an Emacs Lisp file relative to the Emacs Lisp code
 that is in the process of being loaded or eval'd.
 
@@ -80,13 +80,13 @@ buffer-setting or buffer changing operations."
 	 (file-name-sans-extension 
 	  (file-name-nondirectory relative-file))))
     (require (intern require-string-name) 
-	       (relative-expand-file-name relative-file symbol))))
+	       (relative-expand-file-name relative-file opt-file))))
 
 (defmacro require-relative-list (list)
   `(progn 
      (eval-when-compile
        (require 'cl
 		(dolist (rel-file ,list)
-		  (require-relative rel-file))))
+		  (require-relative rel-file (__FILE__))))
      (dolist (rel-file ,list)
-       (require-relative rel-file))))
+       (require-relative rel-file (__FILE__))))))
