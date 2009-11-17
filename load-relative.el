@@ -87,6 +87,6 @@ buffer-setting or buffer changing operations."
      (eval-when-compile
        (require 'cl
 		(dolist (rel-file ,list)
-		  (require-relative rel-file (__FILE__))))
+		  (require-relative rel-file (__FILE__)))))
      (dolist (rel-file ,list)
-       (require-relative rel-file (__FILE__))))))
+       (require-relative rel-file (__FILE__)))))
