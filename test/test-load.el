@@ -7,6 +7,17 @@
 (context "load-relative"
 	 (tag load-relative)
 
+	 ;; (specify "(__FILE__) on temporary buffer"
+	 ;; 	  (setq tempbuf (generate-new-buffer "*cmdbuf-test*"))
+         ;; FIXME: insert (__FILE__) eval-buffer 
+	 ;; 	  (assert-nil (with-current-buffer tempbuf (__FILE__)))
+	 ;; 	  (kill-buffer tempbuf))
+
+	 (specify "(__FILE__) on this running program"
+		  (assert-equal "test-load"
+				(file-name-sans-extension
+				 (file-name-nondirectory (__FILE__)))))
+
 	 (specify "relative-expand-filename"
 		  (dolist (file-name 
 			   '("load-file1.el" "./load-file1.el" "../test/load-file1.el"))
