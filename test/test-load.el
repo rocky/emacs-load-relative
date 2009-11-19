@@ -7,11 +7,13 @@
 (context "load-relative"
 	 (tag load-relative)
 
-	 ;; (specify "(__FILE__) on temporary buffer"
-	 ;; 	  (setq tempbuf (generate-new-buffer "*cmdbuf-test*"))
-         ;; FIXME: insert (__FILE__) eval-buffer 
-	 ;; 	  (assert-nil (with-current-buffer tempbuf (__FILE__)))
-	 ;; 	  (kill-buffer tempbuf))
+	 (specify "(__FILE__) on temporary buffer"
+	 	  (setq tempbuf (generate-new-buffer "*cmdbuf-test*"))
+		  (assert-nil
+		   (with-current-buffer tempbuf
+		     (insert "(__FILE__)\n")
+		     (eval-current-buffer))
+	 	  (kill-buffer tempbuf)))
 
 	 (specify "(__FILE__) on this running program"
 		  (assert-equal "test-load"
@@ -48,7 +50,7 @@
 	 	    ))
 
 	 (specify "require-relative"
-	 	  (if (featurep 'require-file1) 
+	 	  (if (featurep 'require-file1 t) 
 	 	      (unload-feature 'require-file1))
 		  
 	 	  (require-relative "require-file1") 
