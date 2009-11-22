@@ -1,4 +1,19 @@
-(provide 'load-relative)
+;;  Copyright (C) 2009 Rocky Bernstein <rocky@gnu.org>
+
+;; This program is free software: you can redistribute it and/or
+;; modify it under the terms of the GNU General Public License as
+;; published by the Free Software Foundation, either version 3 of the
+;; License, or (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful, but
+;; WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+;; General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see
+;; <http://www.gnu.org/licenses/>.
+
 (defun __FILE__ (&optional symbol)
   "Return the string name of file/buffer that is currently begin executed.
 
@@ -16,16 +31,18 @@ those cases, we try `buffer-file-name' which is initially
 correct, for eval'd code, but will change and may be wrong if the
 code sets or switches buffers after the initial execution.
 
-Failing the above the next approach we try is to use the value of
-$# - 'the name of this file as a string'. Although it doesn't
-work for eval-like things, it has the advantage that this value
-persists after loading or evaluating a file. So it would be
-suitable if __FILE__ were called from inside a function.
-
 As a last resort, you can pass in SYMBOL which should be some
 symbol that has been previously defined if none of the above
 methods work we will use the file-name value find via
 `symbol-file'."
+;; Not used right now:
+;; Failing the above the next approach we try is to use the value of
+;; $# - 'the name of this file as a string'. Although it doesn't
+;; work for eval-like things, it has the advantage that this value
+;; persists after loading or evaluating a file. So it would be
+;; suitable if __FILE__ were called from inside a function.
+
+
   (cond 
      ;; lread.c's readevalloop sets (car current-load-list)
      ;; via macro LOADHIST_ATTACH of lisp.h. At least in Emacs
@@ -52,10 +69,9 @@ methods work we will use the file-name value find via
 the process of being loaded or eval'd.
 
 FILE-OR-LIST is either a string or a list of strings containing
-files that you want to loaded.
-
-WARNING: it is best to to run this function before any
-buffer-setting or buffer changing operations."
+files that you want to loaded. If SYMBOL is given, the location of
+of the file of where that was defined (as given by `symbol-file' is used
+is other methods of finding __FILE__ don't work."
 
   (if (listp file-or-list)
       (mapcar (lambda(relative-file)
@@ -65,14 +81,22 @@ buffer-setting or buffer changing operations."
 
 (defun relative-expand-file-name(relative-file &optional opt-file)
   "Expand RELATIVE-FILE relative to the Emacs Lisp code that is in
-the process of being loaded or eval'd."
-  (let* ((file (or opt-file (__FILE__) default-directory))
-	 (prefix (file-name-directory file)))
+the process of being loaded or eval'd.
+
+WARNING: it is best to to run this function before any
+buffer-setting or buffer changing operations."
+  (let ((file (or opt-file (__FILE__) default-directory))
+	 (prefix))
+    (unless file
+      (error "Can't expand __FILE__ here and no file name given"))
+    (setq prefix (file-name-directory file))
     (expand-file-name (concat prefix relative-file))))
 
 (defun require-relative (relative-file &optional opt-file)
   "Run `require' on an Emacs Lisp file relative to the Emacs Lisp code
-that is in the process of being loaded or eval'd.
+that is in the process of being loaded or eval'd. The symbol used in require
+is the base file name (without directory or file extension) treated as a 
+symbol.
 
 WARNING: it is best to to run this function before any
 buffer-setting or buffer changing operations."
@@ -83,6 +107,8 @@ buffer-setting or buffer changing operations."
 	       (relative-expand-file-name relative-file opt-file))))
 
 (defmacro require-relative-list (list)
+"Run `require-relative' on each name in LIST which should be a list of
+strings, each string being the relative name of file you want to run."
   `(progn 
      (eval-when-compile
        (require 'cl
@@ -90,3 +116,12 @@ buffer-setting or buffer changing operations."
 		  (require-relative rel-file (__FILE__)))))
      (dolist (rel-file ,list)
        (require-relative rel-file (__FILE__)))))
+
+(defmacro provide-me ()
+  "Create a `provide' with a feature which is the file basename of this
+directory (sans extension). For example if you write (provide-me) inside
+file ~/lisp/foo.el this is the same as writing: (provide 'foo)."
+  `(provide (intern (file-name-sans-extension
+	  (file-name-nondirectory (__FILE__))))))
+
+(provide-me)
