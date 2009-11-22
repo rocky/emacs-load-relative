@@ -56,6 +56,12 @@
 	 	  (require-relative "require-file1") 
 	 	  (assert-t (featurep 'require-file1)))
 
+	 (specify "provide-me"
+	 	  (if (featurep 'test-load t)
+	 	      (unload-feature 'test-load))
+		  (provide-me)
+		  (assert-t (featurep 'test-load)))
+
 )
 
 (behave "load-relative")
