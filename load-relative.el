@@ -118,9 +118,10 @@ strings, each string being the relative name of file you want to run."
        (require-relative rel-file (__FILE__)))))
 
 (defmacro provide-me ()
-  "Create a `provide' with a feature which is the file basename of this
-directory (sans extension). For example if you write (provide-me) inside
-file ~/lisp/foo.el this is the same as writing: (provide 'foo)."
+  "Call `provide' with the feature's symbol name made from
+source-code's file basename sans extension. For example if you
+write (provide-me) inside file ~/lisp/foo.el, this is the same as
+writing: (provide 'foo)."
   `(provide (intern (file-name-sans-extension
 	  (file-name-nondirectory (__FILE__))))))
 
