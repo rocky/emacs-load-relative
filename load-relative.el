@@ -92,7 +92,7 @@ buffer-setting or buffer changing operations."
     (setq prefix (file-name-directory file))
     (expand-file-name (concat prefix relative-file))))
 
-(defun require-relative (relative-file &optional opt-file)
+(defun require-relative (relative-file &optional opt-file opt-prefix)
   "Run `require' on an Emacs Lisp file relative to the Emacs Lisp code
 that is in the process of being loaded or eval'd. The symbol used in require
 is the base file name (without directory or file extension) treated as a 
@@ -101,28 +101,28 @@ symbol.
 WARNING: it is best to to run this function before any
 buffer-setting or buffer changing operations."
   (let ((require-string-name 
-	 (file-name-sans-extension 
-	  (file-name-nondirectory relative-file))))
+	 (concat opt-prefix (file-name-sans-extension 
+	  (file-name-nondirectory relative-file)))))
     (require (intern require-string-name) 
 	       (relative-expand-file-name relative-file opt-file))))
 
-(defmacro require-relative-list (list)
+(defmacro require-relative-list (list &optional opt-prefix)
 "Run `require-relative' on each name in LIST which should be a list of
 strings, each string being the relative name of file you want to run."
   `(progn 
      (eval-when-compile
        (require 'cl
 		(dolist (rel-file ,list)
-		  (require-relative rel-file (__FILE__)))))
+		  (require-relative rel-file (__FILE__) ,opt-prefix))))
      (dolist (rel-file ,list)
-       (require-relative rel-file (__FILE__)))))
+       (require-relative rel-file (__FILE__) ,opt-prefix))))
 
-(defmacro provide-me ()
+(defmacro provide-me ( &optional prefix )
   "Call `provide' with the feature's symbol name made from
 source-code's file basename sans extension. For example if you
 write (provide-me) inside file ~/lisp/foo.el, this is the same as
 writing: (provide 'foo)."
-  `(provide (intern (file-name-sans-extension
-	  (file-name-nondirectory (__FILE__))))))
+  `(provide (intern (concat ,prefix (file-name-sans-extension
+	  (file-name-nondirectory (__FILE__)))))))
 
 (provide-me)

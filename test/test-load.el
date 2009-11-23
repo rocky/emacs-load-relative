@@ -56,11 +56,32 @@
 	 	  (require-relative "require-file1") 
 	 	  (assert-t (featurep 'require-file1)))
 
-	 (specify "provide-me"
+	 (specify "require-relative-list"
+	 	  (if (featurep 'require-file1 t) 
+	 	      (unload-feature 'require-file1))
+		  
+	 	  (require-relative-list '("require-file1" "require-file3"))
+	 	  (assert-t (and (featurep 'require-file1)
+				 (featurep 'require-file3))))
+
+	 (specify "require-relative-list with prefix"
+	 	  (if (featurep 'my-require-file2 t)
+	 	      (unload-feature 'my-require-file2))
+		  
+	 	  (require-relative-list '("require-file2") "my-")
+	 	  (assert-t (featurep 'my-require-file2)))
+
+	 (specify "provide-me - no prefix"
 	 	  (if (featurep 'test-load t)
 	 	      (unload-feature 'test-load))
 		  (provide-me)
 		  (assert-t (featurep 'test-load)))
+
+	 (specify "provide-me - prefix"
+	 	  (if (featurep 'my-test-load t)
+	 	      (unload-feature 'my-test-load))
+		  (provide-me "my-")
+		  (assert-t (featurep 'my-test-load)))
 
 )
 
