@@ -60,7 +60,14 @@ methods work we will use the file-name value find via
      ;; loading.
      ;; (#$) 
 
-     ((buffer-file-name))     ;; eval-like things
+     ;; eval-like things
+     ((buffer-file-name))     
+
+     ;; When byte compiling. FIXME: use a more through precondition like
+     ;; byte-compile-file is somehwere in the backtrace or that
+     ;; bytecomp-filename comes from that routine? 
+     ((boundp 'bytecomp-filename) bytecomp-filename)
+
      (t (symbol-file symbol)) ;; last resort
      ))
 
