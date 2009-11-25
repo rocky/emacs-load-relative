@@ -93,9 +93,9 @@
 
 (defvar *behave-default-tags* "all")
 
-(defvar *behave-total-assertions* 
+(defvar *behave-total-assertions* 0
   "Count of number of assertions seen since the last `behave-clear-contexts'"
-0)
+)
 
 (defstruct context 
   description
