@@ -1,8 +1,8 @@
 (require 'cl)
-(load-file "./behave.el")
+(require 'test-unit)
 (load-file "../load-relative.el")
 
-(behave-clear-contexts)
+(test-unit-clear-contexts)
 
 (context "load-relative-list"
 	 (tag load-relative-list)
@@ -15,5 +15,4 @@
 
 )
 
-(behave "load-relative-list")
-
+(test-unit "load-relative-list")
