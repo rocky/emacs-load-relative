@@ -1,7 +1,22 @@
-AC_INIT(emacs-load-relaitve, 0.01vc,)
+AC_INIT(emacs-load-relative, 0.01vc,)
 AC_CONFIG_SRCDIR(load-relative.el)
 AM_INIT_AUTOMAKE
 AM_MAINTAINER_MODE
+AM_MISSING_PROG(GIT2CL, git2cl, $missing_dir)
+
+AC_PATH_PROG(EMACS, emacs, no)
+if test x$EMACS != xno ; then
+  $EMACS -batch -q -no-site-file -eval \
+  '(if (<= emacs-major-version 22)
+     (progn
+       (error "You need GNU Emacs 23 or better for this package.")
+       (kill-emacs 1)
+     ))'
+  if test $? -ne 0 ; then
+    EMACS=no
+  fi
+fi
+
 
 ##
 ## Find out where to install the debugger emacs lisp files
