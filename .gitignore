@@ -12,5 +12,6 @@
 /elc-stamp
 /elc-temp
 /elisp-comp
+/emacs-load-relative-*.tar.gz
 /install-sh
 /missing

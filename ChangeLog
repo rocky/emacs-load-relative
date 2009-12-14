@@ -1,0 +1,153 @@
+2009-12-13  rocky <rocky@gnu.org>
+
+	* : commit f9d93f6f2ca9d5356d2a94d46d61d65cefa20d5d Author: rocky
+	<rocky@gnu.org> Date:   Sun Dec 13 22:59:12 2009 -0500
+
+2009-12-12  rocky <rocky@gnu.org>
+
+	* README.textile: Reformat without line breaks
+
+2009-12-12  rocky <rocky@gnu.org>
+
+	* README.md, README.textile: Try textile for readme
+
+2009-12-12  rocky <rocky@gnu.org>
+
+	* README.md, README.redcloth: Try using .md extension for doc.
+
+2009-11-29  rocky <rocky@gnu.org>
+
+	* test/behave.el: Add assert-raises.
+
+2009-11-25  rocky <rocky@gnu.org>
+
+	* test/behave.el: behave.el: fix incorrect initialization on
+	*behave-total-assertions*.
+
+2009-11-24  rocky <rocky@gnu.org>
+
+	* test/behave.el: Show number of assertions run.
+
+2009-11-22  rocky <rocky@gnu.org>
+
+	* load-relative.el: Add provision for getting __FILE__ when we are
+	byte compiling.
+
+2009-11-22  rocky <rocky@gnu.org>
+
+	* load-relative.el, test/require-file2.el, test/require-file3.el,
+	test/test-load.el: Add optional prefix to require-relative,
+	require-relative and provide-me which will add that prefix to the
+	feature name.
+
+2009-11-22  rocky <rocky@gnu.org>
+
+	* test/test-load.el: Minimal test of provide-me.
+
+2009-11-22  rocky <rocky@gnu.org>
+
+	* load-relative.el: Doc string fix.
+
+2009-11-21  rocky <rocky@gnu.org>
+
+	* Makefile.am, README, README.redcloth: Turn README back into text.
+	Add special redcloth version.
+
+2009-11-21  rocky <rocky@gnu.org>
+
+	* README, README.markup: Nope changing the name made things worse.
+
+2009-11-21  rocky <rocky@gnu.org>
+
+	* README, README.markup: See if changing the name from README to
+	README.markup gives github a clue
+
+2009-11-21  rocky <rocky@gnu.org>
+
+	* README, load-relative.el: load-relative.el: Add provide-me and
+	make GPL v3.  README: expand and turn into red-cloth markup.
+
+2009-11-19  R. Bernstein <rocky@gnu.org>
+
+	* test/test-load.el: Another test of (__FILE__). Make test-load more
+	eval-current'able.
+
+2009-11-19  R. Bernstein <rocky@gnu.org>
+
+	* test/test-load.el: Add first __FILE__ test.
+
+2009-11-17  R. Bernstein <rocky@gnu.org>
+
+	* load-relative.el: Bug: was not require-relative when not at
+	compile time.
+
+2009-11-15  rocky <rocky@gnu.org>
+
+	* load-relative.el: Working towards a more perfect __FILE__. Perhaps
+	I am flailing here. Need much better tests.
+
+2009-11-15  rocky <rocky@gnu.org>
+
+	* Makefile.am, load-relative.el, test/test-require-list.el: Add
+	macro to handle relative requires using a list. And use this list
+	eval-when-compile to remove the undefined function messages in
+	byte-compilation.
+
+2009-11-13  rocky <rocky@gnu.org>
+
+	* load-relative.el: Go over __FILE__ test ordering and more comments
+	to as to why we do what we do.
+
+2009-11-13  rocky <rocky@gnu.org>
+
+	* load-relative.el: Update __FILE__ docstring comment.
+
+2009-11-13  rocky <rocky@gnu.org>
+
+	* load-relative.el: Also try #$ - "the name of this file as a
+	string". Thanks due to grischka for the suggestion.
+
+2009-11-13  rocky <rocky@gnu.org>
+
+	* test/require-file1.el: Used in testing require-relative
+
+2009-11-13  rocky <rocky@gnu.org>
+
+	* load-relative.el, test/load-file2.el, test/test-load.el: 
+	load-relative.el: Use current-load-list to get loaded/eval'd file
+	name. It is perhaps is the most reliable but also the most low-level
+	and it is an undocumented API. Update doc strings to record what we
+	now understand. Allow an optional symbol -- just in case. Update
+	tests.
+
+2009-11-12  rocky <rocky@ubuntu-vm.(none)>
+
+	* test/behave.el, test/test-load.el: test-load.el: add a
+	require-relative test behave.el: sync up with emacs-dbgr - one bug
+	removed.
+
+2009-11-12  rocky <rocky@gnu.org>
+
+	* load-relative.el: Add require-relative.
+
+2009-11-12  rocky <rocky@gnu.org>
+
+	* : commit 03682a17109963fcf53bc2946bf1d46b4c0dcc08 Author: rocky
+	<rocky@gnu.org> Date:   Thu Nov 12 08:23:04 2009 -0500
+
+2009-11-10  R. Bernstein <rocky@gnu.org>
+
+	* load-relative.el, test/behave.el, test/test-load.el: test-load.el:
+	I think we need to expand the filename before calling load.
+	behave.el: reduce dependency on spec part.
+
+2009-11-09  rocky <rocky@gnu.org>
+
+	* load-relative.el, test/load-file1.el, test/test-load.el: Allow
+	load-relative to accept a list of strings of files to load.
+
+2009-11-09  rocky <rocky@gnu.org>
+
+	* Relative loads for Emacs Lisp files. Adds functions __FILE__ and
+	load-relative.
+
