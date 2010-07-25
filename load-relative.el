@@ -1,4 +1,12 @@
-;;  Copyright (C) 2009 Rocky Bernstein <rocky@gnu.org>
+;;; load-relative.el --- relative file load (within a multi-file Emacs package)
+
+;; Author: Rocky Bernstein
+;; Version: 0.01
+;; Keywords: internal
+;; URL: http://github.com/rocky/emacs-load-relative
+;; Compatibility: GNU Emacs 23.x
+
+;;  Copyright (C) 2009, 2010 Rocky Bernstein <rocky@gnu.org>
 
 ;; This program is free software: you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as
@@ -35,41 +43,41 @@ As a last resort, you can pass in SYMBOL which should be some
 symbol that has been previously defined if none of the above
 methods work we will use the file-name value find via
 `symbol-file'."
-;; Not used right now:
-;; Failing the above the next approach we try is to use the value of
-;; $# - 'the name of this file as a string'. Although it doesn't
-;; work for eval-like things, it has the advantage that this value
-;; persists after loading or evaluating a file. So it would be
-;; suitable if __FILE__ were called from inside a function.
+  ;; Not used right now:
+  ;; Failing the above the next approach we try is to use the value of
+  ;; $# - 'the name of this file as a string'. Although it doesn't
+  ;; work for eval-like things, it has the advantage that this value
+  ;; persists after loading or evaluating a file. So it would be
+  ;; suitable if __FILE__ were called from inside a function.
 
 
   (cond 
-     ;; lread.c's readevalloop sets (car current-load-list)
-     ;; via macro LOADHIST_ATTACH of lisp.h. At least in Emacs
-     ;; 23.0.91 and this code goes back to '93.
-     ((stringp (car-safe current-load-list)) (car current-load-list))
+   ;; lread.c's readevalloop sets (car current-load-list)
+   ;; via macro LOADHIST_ATTACH of lisp.h. At least in Emacs
+   ;; 23.0.91 and this code goes back to '93.
+   ((stringp (car-safe current-load-list)) (car current-load-list))
 
-     ;; load-like things. 'relative-file-expand' tests in
-     ;; test/test-load.el indicates we should put this ahead of
-     ;; $#.
-     (load-file-name)  
+   ;; load-like things. 'relative-file-expand' tests in
+   ;; test/test-load.el indicates we should put this ahead of
+   ;; $#.
+   (load-file-name)  
 
-     ;; Pick up "name of this file as a string" which is set on
-     ;; reading and persists. In contrast, load-file-name is set only
-     ;; inside eval. As such, it won't work when not in the middle of
-     ;; loading.
-     ;; (#$) 
+   ;; Pick up "name of this file as a string" which is set on
+   ;; reading and persists. In contrast, load-file-name is set only
+   ;; inside eval. As such, it won't work when not in the middle of
+   ;; loading.
+   ;; (#$) 
 
-     ;; eval-like things
-     ((buffer-file-name))     
+   ;; eval-like things
+   ((buffer-file-name))     
 
-     ;; When byte compiling. FIXME: use a more through precondition like
-     ;; byte-compile-file is somehwere in the backtrace or that
-     ;; bytecomp-filename comes from that routine? 
-     ((boundp 'bytecomp-filename) bytecomp-filename)
+   ;; When byte compiling. FIXME: use a more through precondition like
+   ;; byte-compile-file is somehwere in the backtrace or that
+   ;; bytecomp-filename comes from that routine? 
+   ((boundp 'bytecomp-filename) bytecomp-filename)
 
-     (t (symbol-file symbol)) ;; last resort
-     ))
+   (t (symbol-file symbol)) ;; last resort
+   ))
 
 (defun load-relative (file-or-list &optional symbol)
   "Load an Emacs Lisp file relative to Emacs Lisp code that is in
@@ -83,7 +91,7 @@ is other methods of finding __FILE__ don't work."
   (if (listp file-or-list)
       (mapcar (lambda(relative-file)
 		(load (relative-expand-file-name relative-file symbol)))
-		file-or-list)
+	      file-or-list)
     (load (relative-expand-file-name file-or-list symbol))))
 
 (defun relative-expand-file-name(relative-file &optional opt-file)
@@ -93,7 +101,7 @@ the process of being loaded or eval'd.
 WARNING: it is best to to run this function before any
 buffer-setting or buffer changing operations."
   (let ((file (or opt-file (__FILE__) default-directory))
-	 (prefix))
+	(prefix))
     (unless file
       (error "Can't expand __FILE__ here and no file name given"))
     (setq prefix (file-name-directory file))
@@ -109,12 +117,12 @@ WARNING: it is best to to run this function before any
 buffer-setting or buffer changing operations."
   (let ((require-string-name 
 	 (concat opt-prefix (file-name-sans-extension 
-	  (file-name-nondirectory relative-file)))))
+			     (file-name-nondirectory relative-file)))))
     (require (intern require-string-name) 
-	       (relative-expand-file-name relative-file opt-file))))
+	     (relative-expand-file-name relative-file opt-file))))
 
 (defmacro require-relative-list (list &optional opt-prefix)
-"Run `require-relative' on each name in LIST which should be a list of
+  "Run `require-relative' on each name in LIST which should be a list of
 strings, each string being the relative name of file you want to run."
   `(progn 
      (eval-when-compile
@@ -130,6 +138,8 @@ source-code's file basename sans extension. For example if you
 write (provide-me) inside file ~/lisp/foo.el, this is the same as
 writing: (provide 'foo)."
   `(provide (intern (concat ,prefix (file-name-sans-extension
-	  (file-name-nondirectory (__FILE__)))))))
+				     (file-name-nondirectory (__FILE__)))))))
 
 (provide-me)
+
+;;; load-relative.el ends here

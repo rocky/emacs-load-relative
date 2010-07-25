@@ -1,7 +1,7 @@
 lisp_files := $(wildcard *.el)
 test_files := $(wildcard test/test-*.el)
 
-EXTRA_DIST = $(lisp_files) $(test_files) README.textile test/behave.el
+EXTRA_DIST = $(lisp_files) $(test_files) README.textile 
 
 CHECK_FILES = $(notdir $(test_files:.el=.run))
 
@@ -9,6 +9,9 @@ lisp_LISP = $(lisp_files)
 
 check: $(CHECK_FILES)
 
+
+README: README.textile
+	cp README.textile README
 
 # FIGURE out how to DRY the run rules.
 test-load.run:
@@ -30,7 +33,3 @@ ACLOCAL_AMFLAGS=-I .
 endif
 
 test: check
-
-
-
-
