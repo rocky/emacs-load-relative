@@ -1,47 +1,44 @@
-Emacs relative-file load, require __FILE__ and a provide-me macro.
+h2. Emacs relative-file _load_, _require_ *==__FILE__==* and a _provide-me_ macro.
 
-Here we add functions: load-relative, require-relative,
-require-relative-list, __FILE__, and macro provide-me.
+Here we add functions: *load-relative*, *require-relative*, *require-relative-list*, *==__FILE__==*, and macro *provide-me*.
 
-The latest version is at http://github.com/rocky/emacs-load-relative/
+The latest version is at "http://github.com/rocky/emacs-load-relative/"://github.com/rocky/emacs-load-relative/
 
-__FILE__ returns the file name that that the calling program is
-running. If you are _eval_’ing a buffer then the file name of that
-buffer is used. The name was selected to be analogous to the name its use in C or Ruby.
+h3. *==__FILE__==*
 
-load-relative loads an Emacs Lisp file relative to another (presumably currently running) Emacs Lisp file. For example if you have files foo.el and bar.el in the same directory, then to load Emacs Lisp file bar.el from inside Emacs lisp file foo.el:
+*==__FILE__==* returns the file name that that the calling program is running.  If you are _eval_'ing a buffer then the file name of that buffer is used. The name was selected to be analogous to the name its use in C or Ruby.
 
- (require 'load-relative)
+h3. _load-relative_
+
+_load-relative_ loads an Emacs Lisp file relative to another (presumably currently running) Emacs Lisp file. For example if you have files _foo.el_ and _bar.el_ in the same directory, then to load Emacs Lisp file _bar.el_ from inside Emacs lisp file _foo.el_:
+
+bc.  (require 'load-relative)
  (load-relative "baz")
 
-That load-relative line could above have also been written as:
+That _load-relative_ line could above have also been written as:
 
- (load-relative "./baz")
+bc.  (load-relative "./baz")
 
 or:
 
- (load-relative "baz.el")  # if you want to exclude any byte-compiled files
+bc.  (load-relative "baz.el")  # if you want to exclude any byte-compiled files
 
-require-relative, require-relative-list
+h3. require-relative, require-relative-list
 
-If instead of loading file baz, you want to require it:
+If instead of loading file _baz_, you want to _require_ it:
 
- (require-relative "baz")
+bc.  (require-relative "baz")
 
-or
+or 
 
- (require-relative "./baz")
+bc.  (require-relative "./baz")
 
-The above not only does a require on ’baz, but makes sure you get
-that from the same file as you would have if you had issued load_relative.
+The above not only does a _require_ on _'baz_, but makes sure you get that from the same file as you would have if you had issued _load_relative_. 
 
-If you have a list of files you want to require, you can require
-them one shot using require-relative-list like this:
+If you have a list of files you want to _require_, you can require them one shot using _require-relative-list_ like this:
 
- (require-relative-list '("dbgr-init" "dbgr-fringe"))
+bc.  (require-relative-list '("dbgr-init" "dbgr-fringe"))
 
-Finally, macro provide-me saves you the trouble of adding a symbol
-after provide, by using the file basename (without directory or file
-extension) as the name of the thing you want to provide. Using this
-forces the provide names to be the same as the filename, but I
-consider that a good thing.
+h3. provide-me
+
+Finally, macro _provide-me_ saves you the trouble of adding a symbol after _provide_, by using the file basename (without directory or file extension) as the name of the thing you want to provide. Using this forces the _provide_ names to be the same as the filename, but  I consider that a good thing.
