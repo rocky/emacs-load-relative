@@ -1,7 +1,77 @@
+2010-09-30  rocky <rocky@gnu.org>
+
+	* .gitignore: git Administrivia.
+
+2010-09-30  rocky <rocky@gnu.org>
+
+	Merge branch 'master' of github.com:rocky/emacs-load-relative
+	Conflicts: 	.gitignore
+
+2010-09-30  rocky <rocky@gnu.org>
+
+	* .gitignore, COPYING, Makefile.am, README, configure.ac: 
+	Administrivia. Add COPYING, update README and .gitignore, bump
+	version number.
+
+2010-08-17  R. Bernstein <rocky@gnu.org>
+
+	* INSTALL: Customize more for emacs.
+
+2010-08-13  R. Bernstein <rocky@gnu.org>
+
+	* .gitignore, INSTALL: Make INSTALL less generic and more specific
+	to Emacs
+
+2010-07-25  rocky <rocky@gnu.org>
+
+	* AUTHORS, Makefile.am, configure.ac, load-relative.el: Add Emacs
+	Lisp Code Archive (ELCA) meta-comments.
+
+2010-03-08  rocky <rocky@gnu.org>
+
+	Merge branch 'master' of
+	git@github.com:rocky/emacs-load-relative
+
+2010-03-08  rocky <rocky@gnu.org>
+
+	* .gitignore: elisp-comp is now in the repository
+
+2009-12-18  rocky <rocky@gnu.org>
+
+	* .gitignore, autogen.sh, elisp-comp: Don't overwrigte elisp-comp.
+
+2009-12-18  rocky <rocky@gnu.org>
+
+	* autogen.sh: Add --enable-maintainer-mode to configure when running
+	autogen.sh
+
+2009-12-14  rocky <rocky@gnu.org>
+
+	Merge branch 'master' of
+	git@github.com:rocky/emacs-load-relative
+
 2009-12-13  rocky <rocky@gnu.org>
 
-	* : commit f9d93f6f2ca9d5356d2a94d46d61d65cefa20d5d Author: rocky
-	<rocky@gnu.org> Date:   Sun Dec 13 22:59:12 2009 -0500
+	* test/behave.el, test/test-load.el, test/test-require-list.el: 
+	Remove local behave.el in favor of new installed package test-unit.
+
+
+2009-12-13  rocky <rocky@gnu.org>
+
+	* .gitignore, ChangeLog, Makefile.am, configure.ac: Administrivia.
+
+2009-12-13  rocky <rocky@gnu.org>
+
+	Merge branch 'master' of
+	git@github.com:rocky/emacs-load-relative
+
+2009-12-13  rocky <rocky@gnu.org>
+
+	* configure.ac: Fix package name typo.
+
+2009-12-13  rocky <rocky@gnu.org>
+
+	* Makefile.am: Include textile README in distribution tarball
 
 2009-12-12  rocky <rocky@gnu.org>
 
@@ -65,7 +135,7 @@
 2009-11-21  rocky <rocky@gnu.org>
 
 	* README, load-relative.el: load-relative.el: Add provide-me and
-	make GPL v3.  README: expand and turn into red-cloth markup.
+	make GPL v3. README: expand and turn into red-cloth markup.
 
 2009-11-19  R. Bernstein <rocky@gnu.org>
 
@@ -132,8 +202,13 @@
 
 2009-11-12  rocky <rocky@gnu.org>
 
-	* : commit 03682a17109963fcf53bc2946bf1d46b4c0dcc08 Author: rocky
-	<rocky@gnu.org> Date:   Thu Nov 12 08:23:04 2009 -0500
+	Merge branch 'master' of
+	git@github.com:rocky/emacs-load-relative  Conflicts:
+	load-relative.el
+
+2009-11-12  rocky <rocky@gnu.org>
+
+	* load-relative.el, test/test-load.el: Add require-relative.
 
 2009-11-10  R. Bernstein <rocky@gnu.org>
 
