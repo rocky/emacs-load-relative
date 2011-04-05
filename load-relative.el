@@ -1,7 +1,7 @@
 ;;; load-relative.el --- relative file load (within a multi-file Emacs package)
 
 ;; Author: Rocky Bernstein
-;; Version: 0.01
+;; Version: 0.02
 ;; Keywords: internal
 ;; URL: http://github.com/rocky/emacs-load-relative
 ;; Compatibility: GNU Emacs 23.x
@@ -79,6 +79,43 @@ methods work we will use the file-name value find via
    (t (symbol-file symbol)) ;; last resort
    ))
 
+(defun autoload-relative (function-or-list 
+			  file &optional docstring interactive type
+			  symbol)
+  "autoload an Emacs Lisp file relative to Emacs Lisp code that is in
+the process of being loaded or eval'd.
+
+
+Define FUNCTION to autoload from FILE. FUNCTION is a symbol.
+
+FILE is a string to pass to `load'.
+
+DOCSTRING is documentation for the function.  
+
+INTERACATIVE if non-nil says function can be called
+interactively.
+
+TYPE indicates the type of the object: nil or omitted says
+function is a function, `keymap' says function is really a
+keymap, and `macro' or t says function is really a macro.  Third
+through fifth args give info about the real definition.  They
+default to nil.  If function is already defined other than as an
+autoload, this does nothing and returns nil.
+
+SYMBOL is the location of of the file of where that was
+defined (as given by `symbol-file' is used if other methods of
+finding __FILE__ don't work."
+
+  (if (listp function-or-list)
+      (mapcar (lambda(function)
+		(autoload function-or-list 
+		  (relative-expand-file-name file symbol)
+		  docstring interactive type))
+	      file)
+    (autoload function-or-list (relative-expand-file-name file symbol)
+      docstring interactive type))
+  )
+
 (defun load-relative (file-or-list &optional symbol)
   "Load an Emacs Lisp file relative to Emacs Lisp code that is in
 the process of being loaded or eval'd.
@@ -86,13 +123,14 @@ the process of being loaded or eval'd.
 FILE-OR-LIST is either a string or a list of strings containing
 files that you want to loaded. If SYMBOL is given, the location of
 of the file of where that was defined (as given by `symbol-file' is used
-is other methods of finding __FILE__ don't work."
+if other methods of finding __FILE__ don't work."
 
   (if (listp file-or-list)
       (mapcar (lambda(relative-file)
 		(load (relative-expand-file-name relative-file symbol)))
 	      file-or-list)
-    (load (relative-expand-file-name file-or-list symbol))))
+    (load (relative-expand-file-name file-or-list symbol)))
+  )
 
 (defun relative-expand-file-name(relative-file &optional opt-file)
   "Expand RELATIVE-FILE relative to the Emacs Lisp code that is in
