@@ -7,7 +7,7 @@ CHECK_FILES = $(notdir $(test_files:.el=.run))
 
 lisp_LISP = $(lisp_files)
 
-check: $(CHECK_FILES)
+check: $(CHECK_FILES) test-require-list-from-subdir.run
 
 
 README: README.textile
@@ -19,6 +19,9 @@ test-load.run:
 
 test-require-list.run:
 	(cd $(srcdir)/test && $(EMACS) -batch -Q -l $(@:.run=.el) )
+
+test-require-list-from-subdir.run:
+	(cd $(srcdir)/test/subdir && $(EMACS) -batch -Q -l $(@:.run=.el) )
 
 .PHONY: $(CHECK_FILES)
 
