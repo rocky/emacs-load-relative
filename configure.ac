@@ -24,5 +24,5 @@ fi
 AM_PATH_LISPDIR
 AM_CONDITIONAL(INSTALL_EMACS_LISP, test "x$lispdir" != "x")
 
-AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([Makefile test/Makefile])
 AC_OUTPUT

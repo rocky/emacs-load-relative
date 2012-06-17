@@ -1,5 +1,5 @@
 #!/bin/bash
-# Install emacs-dbgr from git
+# Install emacs-load-relative from git
 run_cmd() {
     echo "--- Running command: $@"
     $@
@@ -20,8 +20,7 @@ for program in git make $need_sudo ; do
     fi
 done
 
-packages=emacs-load-relative
-for pkg in $packages ; do 
+for pkg in emacs-{test-unit,test-simple,load-relative} ; do 
     echo '******************************************'
     echo Trying to install ${pkg}...
     echo '******************************************'
