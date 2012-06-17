@@ -6,7 +6,7 @@ The latest version is at "http://github.com/rocky/emacs-load-relative/"://github
 
 h3. *==__FILE__==*
 
-*==__FILE__==* returns the file name that that the calling program is running.  If you are _eval_'ing a buffer then the file name of that buffer is used. The name was selected to be analogous to the name its use in C or Ruby.
+*==__FILE__==* returns the file name that that the calling program is running.  If you are _eval_'ing a buffer then the file name of that buffer is used. The name was selected to be analogous to the name used in C, Perl, and Ruby.
 
 h3. _load-relative_
 
