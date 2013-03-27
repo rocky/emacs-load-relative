@@ -24,6 +24,7 @@
 
 ;;; Code:
 
+;;;###autoload
 (defun __FILE__ (&optional symbol)
   "Return the string name of file/buffer that is currently begin executed.
 
@@ -84,7 +85,7 @@ methods work we will use the file-name value find via
 (defun autoload-relative (function-or-list
                           file &optional docstring interactive type
                           symbol)
-  "autoload an Emacs Lisp file relative to Emacs Lisp code that is in
+  "Autoload an Emacs Lisp file relative to Emacs Lisp code that is in
 the process of being loaded or eval'd.
 
 
@@ -118,6 +119,7 @@ finding __FILE__ don't work."
       docstring interactive type))
   )
 
+;;;###autoload
 (defun load-relative (file-or-list &optional symbol)
   "Load an Emacs Lisp file relative to Emacs Lisp code that is in
 the process of being loaded or eval'd.
@@ -147,6 +149,7 @@ buffer-setting or buffer changing operations."
     (setq prefix (file-name-directory file))
     (expand-file-name (concat prefix relative-file))))
 
+;;;###autoload
 (defun require-relative (relative-file &optional opt-file opt-prefix)
   "Run `require' on an Emacs Lisp file relative to the Emacs Lisp code
 that is in the process of being loaded or eval'd. The symbol used in require
@@ -161,6 +164,7 @@ buffer-setting or buffer changing operations."
     (require (intern require-string-name)
              (relative-expand-file-name relative-file opt-file))))
 
+;;;###autoload
 (defmacro require-relative-list (list &optional opt-prefix)
   "Run `require-relative' on each name in LIST which should be a list of
 strings, each string being the relative name of file you want to run."
@@ -172,6 +176,7 @@ strings, each string being the relative name of file you want to run."
      (dolist (rel-file ,list)
        (require-relative rel-file (__FILE__) ,opt-prefix))))
 
+;;;###autoload
 (defmacro provide-me ( &optional prefix )
   "Call `provide' with the feature's symbol name made from
 source-code's file basename sans extension. For example if you
