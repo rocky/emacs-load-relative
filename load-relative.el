@@ -51,7 +51,7 @@ methods work we will use the file-name value find via
   ;; suitable if __FILE__ were called from inside a function.
 
 
-  (cond 
+  (cond
    ;; lread.c's readevalloop sets (car current-load-list)
    ;; via macro LOADHIST_ATTACH of lisp.h. At least in Emacs
    ;; 23.0.91 and this code goes back to '93.
@@ -60,26 +60,26 @@ methods work we will use the file-name value find via
    ;; load-like things. 'relative-file-expand' tests in
    ;; test/test-load.el indicates we should put this ahead of
    ;; $#.
-   (load-file-name)  
+   (load-file-name)
 
    ;; Pick up "name of this file as a string" which is set on
    ;; reading and persists. In contrast, load-file-name is set only
    ;; inside eval. As such, it won't work when not in the middle of
    ;; loading.
-   ;; (#$) 
+   ;; (#$)
 
    ;; eval-like things
-   ((buffer-file-name))     
+   ((buffer-file-name))
 
    ;; When byte compiling. FIXME: use a more thorough precondition like
    ;; byte-compile-file is somehwere in the backtrace or that
-   ;; bytecomp-filename comes from that routine? 
+   ;; bytecomp-filename comes from that routine?
    ((boundp 'bytecomp-filename) bytecomp-filename)
 
    (t (symbol-file symbol)) ;; last resort
    ))
 
-(defun autoload-relative (function-or-list 
+(defun autoload-relative (function-or-list
                           file &optional docstring interactive type
                           symbol)
   "autoload an Emacs Lisp file relative to Emacs Lisp code that is in
@@ -90,7 +90,7 @@ Define FUNCTION to autoload from FILE. FUNCTION is a symbol.
 
 FILE is a string to pass to `load'.
 
-DOCSTRING is documentation for the function.  
+DOCSTRING is documentation for the function.
 
 INTERACATIVE if non-nil says function can be called
 interactively.
@@ -108,7 +108,7 @@ finding __FILE__ don't work."
 
   (if (listp function-or-list)
       (mapcar (lambda(function)
-                (autoload function-or-list 
+                (autoload function-or-list
                   (relative-expand-file-name file symbol)
                   docstring interactive type))
               file)
@@ -148,21 +148,21 @@ buffer-setting or buffer changing operations."
 (defun require-relative (relative-file &optional opt-file opt-prefix)
   "Run `require' on an Emacs Lisp file relative to the Emacs Lisp code
 that is in the process of being loaded or eval'd. The symbol used in require
-is the base file name (without directory or file extension) treated as a 
+is the base file name (without directory or file extension) treated as a
 symbol.
 
 WARNING: it is best to to run this function before any
 buffer-setting or buffer changing operations."
-  (let ((require-string-name 
-         (concat opt-prefix (file-name-sans-extension 
+  (let ((require-string-name
+         (concat opt-prefix (file-name-sans-extension
                              (file-name-nondirectory relative-file)))))
-    (require (intern require-string-name) 
+    (require (intern require-string-name)
              (relative-expand-file-name relative-file opt-file))))
 
 (defmacro require-relative-list (list &optional opt-prefix)
   "Run `require-relative' on each name in LIST which should be a list of
 strings, each string being the relative name of file you want to run."
-  `(progn 
+  `(progn
      (eval-when-compile
        (require 'cl
                 (dolist (rel-file ,list)
