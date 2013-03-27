@@ -22,6 +22,8 @@
 ;; along with this program.  If not, see
 ;; <http://www.gnu.org/licenses/>.
 
+;;; Code:
+
 (defun __FILE__ (&optional symbol)
   "Return the string name of file/buffer that is currently begin executed.
 
