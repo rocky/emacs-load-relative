@@ -6,7 +6,7 @@
 ;; URL: http://github.com/rocky/emacs-load-relative
 ;; Compatibility: GNU Emacs 23.x
 
-;;  Copyright (C) 2009, 2010, 2012 Rocky Bernstein <rocky@gnu.org>
+;;  Copyright (C) 2009-2010, 2012-2013 Rocky Bernstein <rocky@gnu.org>
 
 ;; This program is free software: you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as
@@ -21,6 +21,73 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see
 ;; <http://www.gnu.org/licenses/>.
+
+;;; Commentary:
+
+;; Here we provide functions which facilitate writing multi-file Emacs
+;; packages and facilitate running from the source tree without
+;; having to "install" code.
+;;
+;; Te functions we add ssource out of the source relative versions of
+;; `load', and `require'. We also add a `__FILE__' and a `provide-me' macro.
+
+;; The latest version of this code is at:
+;;     github.com/rocky/emacs-load-relative/
+
+;; __FILE__
+;
+;; __FILE__ returns the file name that that the calling program is
+;; running.  If you are _eval_'ing a buffer then the file name of that
+;; buffer is used. The name was selected to be analogous to the name
+;; used in C, Perl, and Ruby.
+
+;; load-relative
+
+;; load-relative loads an Emacs Lisp file relative to another
+;; (presumably currently running) Emacs Lisp file. For example if you
+;; have files _foo.el_ and _bar.el_ in the same directory, then to
+;; load Emacs Lisp file _bar.el_ from inside Emacs lisp file _foo.el_:
+;;
+;;     (require 'load-relative)
+;;     (load-relative "baz")
+;;
+;; The above `load-relative' line could above have also been written as:
+;;
+;;      (load-relative "./baz")
+;;
+;; or:
+;;
+;;    (load-relative "baz.el")  # if you want to exclude any byte-compiled files
+;;
+;; require-relative-list
+;;
+;; If instead of loading file "baz", you want to `require' it, do this:
+;;
+;;    (require-relative "baz")
+;;
+;; or:
+;;
+;;    (require-relative "./baz")
+;;
+;; The above not only does a `require_ on 'baz', but makes sure you
+;; get that from the same file as you would have if you had issued
+;; `load_relative'.
+;;
+;; If you have a list of files you want to _require_, you can require
+;; them one shot using `require-relative-list_'like this:
+;;
+;;     (require-relative-list '("dbgr-init" "dbgr-fringe"))
+;;
+;;     ( provide-me)
+;;
+;; Finally, macro `provide-me' saves you the trouble of adding a
+;; symbol after `provide' using the file basename (without directory
+;; or file extension) as the name of the thing you want to
+;; provide.
+;;
+;; Using this constrains the `provide' name to be the same as
+;; the filename, but I consider that a good thing.
+
 
 (defun __FILE__ (&optional symbol)
   "Return the string name of file/buffer that is currently begin executed.
@@ -51,7 +118,7 @@ methods work we will use the file-name value find via
   ;; suitable if __FILE__ were called from inside a function.
 
 
-  (cond 
+  (cond
    ;; lread.c's readevalloop sets (car current-load-list)
    ;; via macro LOADHIST_ATTACH of lisp.h. At least in Emacs
    ;; 23.0.91 and this code goes back to '93.
@@ -60,26 +127,26 @@ methods work we will use the file-name value find via
    ;; load-like things. 'relative-file-expand' tests in
    ;; test/test-load.el indicates we should put this ahead of
    ;; $#.
-   (load-file-name)  
+   (load-file-name)
 
    ;; Pick up "name of this file as a string" which is set on
    ;; reading and persists. In contrast, load-file-name is set only
    ;; inside eval. As such, it won't work when not in the middle of
    ;; loading.
-   ;; (#$) 
+   ;; (#$)
 
    ;; eval-like things
-   ((buffer-file-name))     
+   ((buffer-file-name))
 
    ;; When byte compiling. FIXME: use a more thorough precondition like
    ;; byte-compile-file is somehwere in the backtrace or that
-   ;; bytecomp-filename comes from that routine? 
+   ;; bytecomp-filename comes from that routine?
    ((boundp 'bytecomp-filename) bytecomp-filename)
 
    (t (symbol-file symbol)) ;; last resort
    ))
 
-(defun autoload-relative (function-or-list 
+(defun autoload-relative (function-or-list
                           file &optional docstring interactive type
                           symbol)
   "autoload an Emacs Lisp file relative to Emacs Lisp code that is in
@@ -90,7 +157,7 @@ Define FUNCTION to autoload from FILE. FUNCTION is a symbol.
 
 FILE is a string to pass to `load'.
 
-DOCSTRING is documentation for the function.  
+DOCSTRING is documentation for the function.
 
 INTERACATIVE if non-nil says function can be called
 interactively.
@@ -108,7 +175,7 @@ finding __FILE__ don't work."
 
   (if (listp function-or-list)
       (mapcar (lambda(function)
-                (autoload function-or-list 
+                (autoload function-or-list
                   (relative-expand-file-name file symbol)
                   docstring interactive type))
               file)
@@ -148,21 +215,21 @@ buffer-setting or buffer changing operations."
 (defun require-relative (relative-file &optional opt-file opt-prefix)
   "Run `require' on an Emacs Lisp file relative to the Emacs Lisp code
 that is in the process of being loaded or eval'd. The symbol used in require
-is the base file name (without directory or file extension) treated as a 
+is the base file name (without directory or file extension) treated as a
 symbol.
 
 WARNING: it is best to to run this function before any
 buffer-setting or buffer changing operations."
-  (let ((require-string-name 
-         (concat opt-prefix (file-name-sans-extension 
+  (let ((require-string-name
+         (concat opt-prefix (file-name-sans-extension
                              (file-name-nondirectory relative-file)))))
-    (require (intern require-string-name) 
+    (require (intern require-string-name)
              (relative-expand-file-name relative-file opt-file))))
 
 (defmacro require-relative-list (list &optional opt-prefix)
   "Run `require-relative' on each name in LIST which should be a list of
 strings, each string being the relative name of file you want to run."
-  `(progn 
+  `(progn
      (eval-when-compile
        (require 'cl
                 (dolist (rel-file ,list)
