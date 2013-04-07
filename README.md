@@ -8,16 +8,16 @@ the code. See my [NYC Lisp talk](https://github.com/rocky/emacs-load-relative/wi
 
 ## Contents ##
 
-* [__FILE__](https://github.com/rocky/emacs-load-relative#file)
+* [____FILE____](https://github.com/rocky/emacs-load-relative#file)
 * [load-relative](https://github.com/rocky/emacs-load-relative#load-relative)
 * [require-relative](https://github.com/rocky/emacs-load-relative#require-relative-require-relative-list)
 * [provide-me](https://github.com/rocky/emacs-load-relative#provide-me)
 
 The latest version is at http://github.com/rocky/emacs-load-relative
 
-## __FILE__
+## ____FILE____
 
-__FILE__ returns the file name that that the calling program is
+____FILE____ returns the file name that that the calling program is
 running.  If you are _eval_'ing a buffer then the file name of that
 buffer is used. The name was selected to be analogous to the name used
 in C, Perl, and Ruby.
@@ -55,13 +55,13 @@ or:
 Use *require-relative* if you want to *require* the file instead of
 *load*'ing it:
 
-```
+```lisp
    (require-relative "baz")
 ```
 
 or:
 
-```
+```lisp
    (require-relative "./baz")
 ```
 
