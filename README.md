@@ -1,9 +1,9 @@
-# Emacs relative-file load, require __FILE__ and a _provide-me_ macro.
+# Emacs multi-file develop/run-from-of-source routines
 
 The rational behind module is to be able to write small Emacs
 functions or modules in a larger multi-file Emacs package and
 facilitate running from the source tree without having to "install"
-the code. See my [NYC Lisp talk](https://github.com/rocky/emacs-load-relative/wiki/NYC-Lisp-talk) for more background on this.
+the code of fiddle with evil *load-path*'s . See my [NYC Lisp talk](https://github.com/rocky/emacs-load-relative/wiki/NYC-Lisp-talk) for more background on this.
 
 
 ## Contents ##
