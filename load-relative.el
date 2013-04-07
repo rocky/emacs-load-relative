@@ -25,14 +25,17 @@
 ;;; Commentary:
 
 ;; Here we provide functions which facilitate writing multi-file Emacs
-;; packages and facilitate running from the source tree without
-;; having to "install" code.
+;; packages and facilitate running from the source tree without having
+;; to "install" code or fiddle with evil `load-path'. See
+;; https://github.com/rocky/emacs-load-relative/wiki/NYC-Lisp-talk for
+;; the the rationale behind this.
 ;;
-;; The functions we add ssource out of the source relative versions of
-;; `load', and `require'. We also add a `__FILE__' and a `provide-me' macro.
+;; The functions we add are relative versions of `load', and `require'
+;; and versions which take list arguments. We also add a `__FILE__'
+;; and a `provide-me' macro.
 
 ;; The latest version of this code is at:
-;;     github.com/rocky/emacs-load-relative/
+;;     http://github.com/rocky/emacs-load-relative/
 
 ;; `__FILE__' returns the file name that that the calling program is
 ;; running.  If you are `eval''ing a buffer then the file name of that
@@ -78,6 +81,8 @@
 ;;
 ;; Using this constrains the `provide' name to be the same as
 ;; the filename, but I consider that a good thing.
+
+;;; Code:
 
 ;;;###autoload
 (defun __FILE__ (&optional symbol)
