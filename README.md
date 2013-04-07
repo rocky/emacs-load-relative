@@ -3,7 +3,7 @@
 The rational behind module is to be able to write small Emacs
 functions or modules in a larger multi-file Emacs package and
 facilitate running from the source tree without having to "install"
-the code of fiddle with evil *load-path*'s . See my [NYC Lisp talk](https://github.com/rocky/emacs-load-relative/wiki/NYC-Lisp-talk) for more background on this.
+the code or fiddle with evil *load-path*'s . See my [NYC Lisp talk](https://github.com/rocky/emacs-load-relative/wiki/NYC-Lisp-talk) for more background on this.
 
 
 ## Contents ##
@@ -80,7 +80,7 @@ Finally, macro *provide-me* saves you the trouble of adding a symbol
 after *provide*, by using the file basename (without directory or file
 extension) as the name of the thing you want to provide. Using this
 forces the *provide* names to be the same as the filename, but I
-consider that a good thing. 
+consider that a good thing.
 
 *provide-me* also takes an optional string which will be prepended to the provide name. This is useful if you have a multi-file package and want the files to bue prefaced with the name of the package.
 
@@ -98,13 +98,13 @@ inside that file is the same thing as writing:
 ```
 
 Now suppose `foo.el` is part of a larger package called *bar*. Then if
-you write: 
+you write:
 
 ```lisp
    (provide-me "bar-")
 ```
 
-this is the same as writing: 
+this is the same as writing:
 
 ```lisp
    (provide 'bar-foo)
