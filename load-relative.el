@@ -29,7 +29,8 @@
 ;; having to "install" code.
 ;;
 ;; The functions we add ssource out of the source relative versions of
-;; `load', and `require'. We also add a `__FILE__' and a `provide-me' macro.
+;; `load', and `require'. We also add `__FILE__' function and a
+;; `provide-me' macro.
 
 ;; The latest version of this code is at:
 ;;     github.com/rocky/emacs-load-relative/
@@ -37,11 +38,11 @@
 ;; `__FILE__' returns the file name that that the calling program is
 ;; running.  If you are `eval''ing a buffer then the file name of that
 ;; buffer is used. The name was selected to be analogous to the name
-;; used in C, Perl, and Ruby.
+;; used in C, Perl, Python, and Ruby.
 
 ;; `load-relative' loads an Emacs Lisp file relative to another
 ;; (presumably currently running) Emacs Lisp file. For example suppose
-;; you have Emacs Lips files "foo.el" and "bar.el" in the same
+;; you have Emacs Lisp files "foo.el" and "bar.el" in the same
 ;; directory. To load "bar.el" from inside Emacs lisp file "foo.el":
 ;;
 ;;     (require 'load-relative)
