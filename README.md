@@ -8,10 +8,10 @@ the code. See my [NYC Lisp talk](https://github.com/rocky/emacs-load-relative/wi
 
 ## Contents ##
 
-* [[__FILE__|README#file]]
-* [[load-relative|README#load-relative]]
-* [[require-relative|README#require-relative-require-relative-list]]
-* [[provide-me|README#provide-me]]
+* [__FILE__](https://github.com/rocky/emacs-load-relative#file)
+* [load-relative](https://github.com/rocky/emacs-load-relative#load-relative)
+* [require-relative](https://github.com/rocky/emacs-load-relative#require-relative-require-relative-list)
+* [provide-me](https://github.com/rocky/emacs-load-relative#provide-me)
 
 The latest version is at http://github.com/rocky/emacs-load-relative
 
