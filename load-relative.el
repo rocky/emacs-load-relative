@@ -28,40 +28,33 @@
 ;; packages and facilitate running from the source tree without
 ;; having to "install" code.
 ;;
-;; Te functions we add ssource out of the source relative versions of
+;; The functions we add ssource out of the source relative versions of
 ;; `load', and `require'. We also add a `__FILE__' and a `provide-me' macro.
 
 ;; The latest version of this code is at:
 ;;     github.com/rocky/emacs-load-relative/
 
-;; __FILE__
-;
-;; __FILE__ returns the file name that that the calling program is
-;; running.  If you are _eval_'ing a buffer then the file name of that
+;; `__FILE__' returns the file name that that the calling program is
+;; running.  If you are `eval''ing a buffer then the file name of that
 ;; buffer is used. The name was selected to be analogous to the name
 ;; used in C, Perl, and Ruby.
 
-;; load-relative
-
-;; load-relative loads an Emacs Lisp file relative to another
-;; (presumably currently running) Emacs Lisp file. For example if you
-;; have files _foo.el_ and _bar.el_ in the same directory, then to
-;; load Emacs Lisp file _bar.el_ from inside Emacs lisp file _foo.el_:
+;; `load-relative' loads an Emacs Lisp file relative to another
+;; (presumably currently running) Emacs Lisp file. For example suppose
+;; you have Emacs Lips files "foo.el" and "bar.el" in the same
+;; directory. To load "bar.el" from inside Emacs lisp file "foo.el":
 ;;
 ;;     (require 'load-relative)
 ;;     (load-relative "baz")
 ;;
 ;; The above `load-relative' line could above have also been written as:
 ;;
-;;      (load-relative "./baz")
-;;
+;;     (load-relative "./baz")
 ;; or:
+;;     (load-relative "baz.el")  # if you want to exclude any byte-compiled files
 ;;
-;;    (load-relative "baz.el")  # if you want to exclude any byte-compiled files
-;;
-;; require-relative-list
-;;
-;; If instead of loading file "baz", you want to `require' it, do this:
+;; Use `require-relative' if you want to `require' the file instaed of
+;; `load'ing it:
 ;;
 ;;    (require-relative "baz")
 ;;
@@ -69,16 +62,14 @@
 ;;
 ;;    (require-relative "./baz")
 ;;
-;; The above not only does a `require_ on 'baz', but makes sure you
+;; The above not only does a `require' on 'baz', but makes sure you
 ;; get that from the same file as you would have if you had issued
 ;; `load_relative'.
 ;;
-;; If you have a list of files you want to _require_, you can require
-;; them one shot using `require-relative-list_'like this:
+;; Use `require-relative-list' when you have a list of files you want
+;; to `require'. To `require-relative' them all in one shot:
 ;;
 ;;     (require-relative-list '("dbgr-init" "dbgr-fringe"))
-;;
-;;     ( provide-me)
 ;;
 ;; Finally, macro `provide-me' saves you the trouble of adding a
 ;; symbol after `provide' using the file basename (without directory
