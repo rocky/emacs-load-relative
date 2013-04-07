@@ -53,7 +53,7 @@
 ;; or:
 ;;     (load-relative "baz.el")  # if you want to exclude any byte-compiled files
 ;;
-;; Use `require-relative' if you want to `require' the file instaed of
+;; Use `require-relative' if you want to `require' the file instead of
 ;; `load'ing it:
 ;;
 ;;    (require-relative "baz")
@@ -236,7 +236,12 @@ strings, each string being the relative name of file you want to run."
   "Call `provide' with the feature's symbol name made from
 source-code's file basename sans extension. For example if you
 write (provide-me) inside file ~/lisp/foo.el, this is the same as
-writing: (provide 'foo)."
+writing: (provide 'foo).
+
+With a prefix, that prefix is prepended to the `provide' So in
+the previous example, if you write (provide-me \"bar-\") this is the
+same as writing (provide 'bar-foo)
+"
   `(provide (intern (concat ,prefix (file-name-sans-extension
                                      (file-name-nondirectory (__FILE__)))))))
 

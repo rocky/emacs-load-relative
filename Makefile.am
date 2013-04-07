@@ -1,7 +1,10 @@
 lisp_files := $(wildcard *.el)
 lisp_LISP = $(lisp_files)
 
+PHONY=check check-short clean dist distclean test 
+
 EXTRA_DIST = $(lisp_files) $(test_files) README.textile THANKS COPYING
+GIT2CL ?= git2cl
 
 #: Run all tests
 check: $(test-files)
@@ -12,9 +15,15 @@ check-short:
 	$(MAKE) -C test check 2>&1  | ruby make-check-filter.rb
 
 
+#: same as check
+test: check
+
+#: same as check-short
+test-short: check-short
+
 #: Read this first.
-README: README.textile
-	cp README.textile README
+README: README.md
+	ln -s README.md README
 
 if MAINTAINER_MODE
 
