@@ -8,7 +8,7 @@ the code. See my [NYC Lisp talk](https://github.com/rocky/emacs-load-relative/wi
 
 ## Contents ##
 
-* [____FILE____](https://github.com/rocky/emacs-load-relative#file)
+* [\__FILE__](https://github.com/rocky/emacs-load-relative#file)
 * [load-relative](https://github.com/rocky/emacs-load-relative#load-relative)
 * [require-relative](https://github.com/rocky/emacs-load-relative#require-relative-require-relative-list)
 * [provide-me](https://github.com/rocky/emacs-load-relative#provide-me)
