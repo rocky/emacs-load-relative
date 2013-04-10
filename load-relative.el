@@ -32,7 +32,7 @@
 ;;
 ;; The functions we add are relative versions of `load', and `require'
 ;; and versions which take list arguments. We also add a `__FILE__'
-;; and a `provide-me' macro.
+;; function and a `provide-me' macro.
 
 ;; The latest version of this code is at:
 ;;     http://github.com/rocky/emacs-load-relative/
