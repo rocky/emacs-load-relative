@@ -10,4 +10,4 @@ script:
   - bash ~/.carton/bin/carton
   - emacs -batch -q -no-site-file -eval '(message "%s" load-path)'
   - ls -lR /home/travis
-  - EMACSLOADPATH=/usr/share/emacs/23.3/lisp:/home/travis/build/rocky/emacs-load-relative/elpa/test-simple* /bin/sh ./autogen.sh && EMACSLOADPATH=/home/travis/build/rocky/emacs-load-relative/elpa/test-simple*:/usr/share/emacs/23.3/lisp make check
+  - EMACSLOADPATH=/usr/share/emacs/23.3/lisp:/home/travis/build/rocky/emacs-load-relative/elpa/test-simple-20130710.1126 /bin/sh ./autogen.sh && EMACSLOADPATH=/home/travis/build/rocky/emacs-load-relative/elpa/test-simple-20130710.1126:/usr/share/emacs/23.3/lisp make check
