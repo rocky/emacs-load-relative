@@ -10,4 +10,4 @@ script:
   - bash ~/.carton/bin/carton
   - bash -c "echo load-path ++ $EMACSLOADPATH ++"
   - emacs -batch -q -no-site-file -eval '(message "%s" load-path)'
-  - EMACSLOADPATH=./elpa/test-simple*:$EMACSLOADPATH /bin/sh ./autogen.sh && EMACSLOADPATH=./elpa/test-simple*:$EMACSLOADPATH make check
+  - EMACSLOADPATH=/usr/local/share/emacs/23.3/lisp:./elpa/test-simple* /bin/sh ./autogen.sh && EMACSLOADPATH=./elpa/test-simple*:/usr/local/share/emacs/23.3/lisp make check
