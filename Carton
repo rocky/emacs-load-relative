@@ -1,0 +1,6 @@
+(source "melpa" "http://melpa.milkbox.net/packages/")
+
+(package "load-relative" "0.2.0" "relative file load like Ruby's require_relative")
+
+(development
+	(depends-on "test-simple"))
