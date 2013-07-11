@@ -9,9 +9,5 @@ script:
   - curl -fsSkL https://raw.github.com/rejeep/carton/master/go | sh
   - bash ~/.carton/bin/carton
   - emacs -batch -q -no-site-file -eval '(message "%s" load-path)'
-<<<<<<< HEAD
   - ls -l /home/travis/elpa
   - EMACSLOADPATH=/usr/share/emacs/23.3/lisp:/home/travis/elpa/test-simple-20130710 /bin/sh ./autogen.sh && EMACSLOADPATH=./elpa/test-simple-20130710:/usr/share/emacs/23.3/lisp make check
-=======
-  - EMACSLOADPATH=/usr/share/emacs/23.3/lisp:./elpa/test-simple-20130710 /bin/sh ./autogen.sh && EMACSLOADPATH=./elpa/test-simple-20130710:/usr/share/emacs/23.3/lisp make check
->>>>>>> 497513ccbc113ea79f24a31525935b647eb65f56
