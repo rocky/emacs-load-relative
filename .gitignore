@@ -9,6 +9,7 @@
 /configure
 /elc-stamp
 /elc-temp
+/elpa
 /emacs-load-relative-*.tar.gz
 /install-sh
 /missing
