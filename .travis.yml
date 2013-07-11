@@ -6,4 +6,6 @@ install:
 
 # run the tests
 script:
+  - curl -fsSkL https://raw.github.com/rejeep/carton/master/go | sh
+  - bash ~/.carton/bin/carton
   - /bin/sh ./autogen.sh && make check
