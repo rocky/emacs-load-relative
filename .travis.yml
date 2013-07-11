@@ -8,4 +8,4 @@ install:
 script:
   - curl -fsSkL https://raw.github.com/rejeep/carton/master/go | sh
   - bash ~/.carton/bin/carton
-  - /bin/sh ./autogen.sh && make check
+  - EMACSLOADPATH=./elpa/test-simple* /bin/sh ./autogen.sh && make check
