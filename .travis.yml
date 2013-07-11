@@ -6,6 +6,8 @@ install:
 
 # run the tests
 script:
-  - curl -fsSkL https://raw.github.com/rejeep/carton/master/go | sh
+  - curl -fsSkL https:/    /raw.github.com/rejeep/carton/master/go | sh
   - bash ~/.carton/bin/carton
-  - /bin/sh ./autogen.sh && EMACSLOADPATH=./elpa/test-simple*:$EMACSLOADPATH make check
+  - echo load-path is: $EMACSLOADPATH
+  - $EMACS -batch -q -no-site-file -eval '(message "%s" load-path)'
+  - EMACSLOADPATH=./elpa/test-simple*:$EMACSLOADPATH /bin/sh ./autogen.sh && EMACSLOADPATH=./elpa/test-simple*:$EMACSLOADPATH make check
