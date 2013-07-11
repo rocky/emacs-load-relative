@@ -3,8 +3,6 @@ language: emacs
 install:
   # Install emacs.
   - "sudo apt-get install emacs23-nox"
-  - git clone git://github.com/rocky/emacs-test-simple.git
-  - (cd emacs-test-simple && ./autogen.sh && ./configure && make install)
 
 # run the tests
 script:
