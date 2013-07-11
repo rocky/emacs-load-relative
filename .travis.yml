@@ -8,6 +8,9 @@ install:
 script:
   - curl -fsSkL https://raw.github.com/rejeep/carton/master/go | sh
   - bash ~/.carton/bin/carton
-  - emacs -batch -q -no-site-file -eval '(message "%s" load-path)'
-  - ls -lR /home/travis
-  - EMACSLOADPATH=/usr/share/emacs/23.3/lisp:/home/travis/build/rocky/emacs-load-relative/elpa/test-simple-20130710.1126 /bin/sh ./autogen.sh && EMACSLOADPATH=/home/travis/build/rocky/emacs-load-relative/elpa/test-simple-20130710.1126:/usr/share/emacs/23.3/lisp make check
+  - elpath=$(emacs -batch -q -no-site-file -eval "(message (apply 'concat (mapcar (lambda(x) (concat x \":\")) load-path)))" 2>&1)
+  - test_simple=/home/travis/build/rocky/emacs-load-relative/elpa/test-simple-20130710.1126
+  - elpath=${elpath}${test_simple}
+  - # ls -lR /home/travis
+  - echo $elpath
+  - EMACSLOADPATH=$elpath /bin/sh ./autogen.sh && EMACSLOADPATH=$elpath make check
