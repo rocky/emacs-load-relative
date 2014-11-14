@@ -24,7 +24,7 @@ running.  If you are *eval*'ing a buffer then the file name of that
 buffer is used. The name was selected to be analogous to the name used
 in C, Perl, and Ruby.
 
-For an common example of using this, see [How to Insert Demo Code into an Emacs Lisp Module](How-to-Insert-Demo-Code-into-an-Emacs-Lisp-Module).
+For an common example of using this, see [How to Insert Demo Code into an Emacs Lisp Module](https://github.com/rocky/emacs-load-relative/wiki/How-to-Insert-Demo-Code-into-an-Emacs-Lisp-Module).
 
 ## load-relative
 
