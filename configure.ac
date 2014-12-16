@@ -1,4 +1,4 @@
-AC_INIT(emacs-load-relative, 0.02.git,)
+AC_INIT(emacs-load-relative, 1.0,)
 AC_CONFIG_SRCDIR(load-relative.el)
 AM_INIT_AUTOMAKE
 AM_MAINTAINER_MODE
