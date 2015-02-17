@@ -1,3 +1,19 @@
+;; Copyright (C) 2015 Free Software Foundation, Inc
+
+;; Author: Rocky Bernstein <rocky@gnu.org>
+
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 (require 'cl)
 (require 'test-simple)
 (load-file "../load-relative.el")
@@ -17,9 +33,9 @@
 	      "(__FILE__) on this running program"
 	      )
 
-(dolist (file-name 
+(dolist (file-name
 	 '("load-file1.el" "./load-file1.el" "../test/load-file1.el"))
-  (assert-equal 
+  (assert-equal
    (expand-file-name file-name)
    (relative-expand-file-name file-name))
   "relative-expand-filename"
@@ -32,14 +48,14 @@
 
 (setq loaded-file nil)
 (setq loaded-file1 nil)
-(assert-equal '(t t) 
+(assert-equal '(t t)
 	      (load-relative '("load-file1" "load-file2")
 			     ))
 (assert-equal 't loaded-file1)
 (assert-equal "load-file3" loaded-file)
 
 
-(dolist (file-name 
+(dolist (file-name
 	 '("load-file1.el" "./load-file1.el" "../test/load-file1.el"))
   (setq loaded-file nil)
   (assert-equal t (load-relative file-name)
@@ -48,13 +64,13 @@
 		(format "load-relative value with list file %s" loaded-file)
   ))
 
-(if (featurep 'require-file1 t) 
+(if (featurep 'require-file1 t)
     (unload-feature 'require-file1))
 
-(require-relative "require-file1") 
+(require-relative "require-file1")
 (assert-t (featurep 'require-file1) "require-relative")
 
-(if (featurep 'require-file1 t) 
+(if (featurep 'require-file1 t)
 	     (unload-feature 'require-file1))
 
 (require-relative-list '("require-file1" "require-file3"))
@@ -79,4 +95,3 @@
 (assert-t (featurep 'my-test-load) "provide-me - prefix")
 
 (end-tests)
-

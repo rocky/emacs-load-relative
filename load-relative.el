@@ -1,12 +1,12 @@
 ;;; load-relative.el --- relative file load (within a multi-file Emacs package)
 
 ;; Author: Rocky Bernstein
-;; Version: 1.0
+;; Version: 1.1
 ;; Keywords: internal
 ;; URL: http://github.com/rocky/emacs-load-relative
 ;; Compatibility: GNU Emacs 23.x
 
-;;  Copyright (C) 2009-2010, 2012-2014 Rocky Bernstein <rocky@gnu.org>
+;; Copyright (C) 2015 Free Software Foundation, Inc
 
 ;; This program is free software: you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as
