@@ -6,6 +6,7 @@
 pats = ["^(?:Loading",
         '(re)?make\[',
         "Making check in",
+        "^Wrote",
         '\(cd \.\.',
         "make -C",
         "Test-Unit",
