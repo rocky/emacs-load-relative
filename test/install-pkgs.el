@@ -20,4 +20,5 @@
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")))
 (condition-case nil
     (package-install 'test-simple)
-  ((debug error) nil))
+  ((debug error)
+   (load-library "test-simple")))

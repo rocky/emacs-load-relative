@@ -54,7 +54,7 @@ check-short-elget:
 test-%.run:
 	(cd $(top_srcdir)/test && $(EMACS) --batch --no-site-file --no-splash --load $(@:.run=.el))
 
-#: Run tests using el-get to specify external Lisp dependencies
+#: Run tests getting external Lisp dependencies
 test-%.elrun:
 	(cd $(top_srcdir)/test && $(EMACS) --batch --no-site-file --no-splash --load ./install-pkgs.el --load $(@:.elrun=.el))
 
