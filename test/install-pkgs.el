@@ -21,5 +21,4 @@
 (condition-case nil
     (package-install 'test-simple)
   ((debug error) nil))
-(message load-path)
 (load-library "test-simple")
