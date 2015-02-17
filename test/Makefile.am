@@ -42,6 +42,10 @@ check: $(CHECK_FILES)
 
 #: Run all tests via el-get
 check-elget: $(EL_GET_CHECK_FILES)
+	(cd $(top_srcdir)/test && $(EMACS) --batch --no-site-file --no-splash --load test-require-list.el
+# Leave out until we can get dependecies worked out
+# #: Run all tests via el-get
+#check-elget: $(EL_GET_CHECK_FILES)
 
 #: Run all tests with minimum verbosity
 check-short:
