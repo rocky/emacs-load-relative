@@ -78,7 +78,7 @@ Use *require-relative-list* when you have a list of files you want to
 
 ## provide-me
 
-Finally, macro *provide-me* saves you the trouble of adding a symbol
+The macro *provide-me* saves you the trouble of adding a symbol
 after *provide*, by using the file basename (without directory or file
 extension) as the name of the thing you want to provide. Using this
 forces the *provide* names to be the same as the filename, but I
@@ -111,3 +111,26 @@ this is the same as writing:
 ```lisp
    (provide 'bar-foo)
 ```
+
+
+## find-file-noselect-relative
+
+The function *find-file-noselect-relative* provides a way of accessing
+resources which are located relative to the currently running Emacs lisp file.
+This is probably most useful when running Emacs as a scripting engine for
+batch processing or with tests cases.
+
+```lisp
+   (find-file-noselect-relative "README.md")
+```
+
+## with-relative-file
+
+The macro *with-relative-file* runs in a buffer with the contents of the given
+relative file.
+
+```lisp
+   (with-relative-file "README.md"
+     (buffer-substring))
+```
+     
