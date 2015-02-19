@@ -180,6 +180,30 @@ finding __FILE__ don't work."
   )
 
 ;;;###autoload
+(defun find-file-noselect-relative (filename &optional nowarn rawfile wildcards)
+  "Read relative FILENAME into a buffer and return the buffer.
+If a buffer exists visiting FILENAME, return that one, but
+verify that the file has not changed since visited or saved.
+The buffer is not selected, just returned to the caller.
+Optional second arg NOWARN non-nil means suppress any warning messages.
+Optional third arg RAWFILE non-nil means the file is read literally.
+Optional fourth arg WILDCARDS non-nil means do wildcard processing
+and visit all the matching files.  When wildcards are actually
+used and expanded, return a list of buffers that are visiting
+the various files."
+  (find-file-noselect (relative-expand-file-name filename)
+                      nowarn rawfile wildcards))
+
+;;;###autoload
+(defmacro with-relative-file (file &rest body)
+  "Read relative FILE into a temporary buffer and evaluated BODY
+in this buffer."
+  (declare (indent 1) (debug t))
+  `(with-current-buffer
+       (find-file-noselect-relative ,file)
+     ,@body))
+
+;;;###autoload
 (defun load-relative (file-or-list &optional symbol)
   "Load an Emacs Lisp file relative to Emacs Lisp code that is in
 the process of being loaded or eval'd.
