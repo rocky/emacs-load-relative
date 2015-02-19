@@ -196,11 +196,13 @@ the various files."
 
 ;;;###autoload
 (defmacro with-relative-file (file &rest body)
-  "Read relative FILE into a temporary buffer and evaluated BODY
+  "Read the relative FILE into a temporary buffer and evaluate BODY
 in this buffer."
   (declare (indent 1) (debug t))
-  `(with-current-buffer
-       (find-file-noselect-relative ,file)
+  `(with-temp-buffer
+     (insert-file-contents
+      (relative-expand-file-name
+       ,file))
      ,@body))
 
 ;;;###autoload
