@@ -1,4 +1,4 @@
-(require 'load-relative)
+(load-file "../load-relative.el")
 (require 'ert)
 
 
