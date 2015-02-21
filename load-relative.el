@@ -30,9 +30,9 @@
 ;; https://github.com/rocky/emacs-load-relative/wiki/NYC-Lisp-talk for
 ;; the the rationale behind this.
 ;;
-;; The functions we add are relative versions of `load', and `require'
-;; and versions which take list arguments. We also add a `__FILE__'
-;; function and a `provide-me' macro.
+;; The functions we add are relative versions of `load', `require' and
+;; `find-file-no-select' and versions which take list arguments. We also add a
+;; `__FILE__' function and a `provide-me' macro.
 
 ;; The latest version of this code is at:
 ;;     http://github.com/rocky/emacs-load-relative/
@@ -74,13 +74,34 @@
 ;;
 ;;     (require-relative-list '("dbgr-init" "dbgr-fringe"))
 ;;
-;; Finally, macro `provide-me' saves you the trouble of adding a
+;; The macro `provide-me' saves you the trouble of adding a
 ;; symbol after `provide' using the file basename (without directory
 ;; or file extension) as the name of the thing you want to
 ;; provide.
 ;;
 ;; Using this constrains the `provide' name to be the same as
 ;; the filename, but I consider that a good thing.
+;;
+;; The function `find-file-noselect-relative' provides a way of accessing
+;; resources which are located relative to the currently running Emacs lisp
+;; file. This is probably most useful when running Emacs as a scripting engine
+;; for batch processing or with tests cases. For example, this form will find
+;; the README file for this package.
+;;
+;;     (find-file-noselect-relative "README.md")
+;;
+;; `find-file-noselect-relative' also takes wildcards, as does it's
+;; non-relative namesake.
+;;
+;; The macro `with-relative-file' runs in a buffer with the contents of the
+;; given relative file.
+;;
+;;    (with-relative-file "README.md"
+;;      (buffer-substring))
+;;
+;; This is easier if you care about the contents of the file, rather than
+;; a buffer.
+
 
 ;;; Code:
 
