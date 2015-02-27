@@ -3,7 +3,7 @@ lisp_LISP = $(lisp_files)
 
 PHONY=check check-short clean dist distclean test
 
-EXTRA_DIST = $(lisp_files) $(test_files) README.md THANKS COPYING
+EXTRA_DIST = $(lisp_files) $(test_files) README.md
 GIT2CL ?= git2cl
 
 #: Run all tests
