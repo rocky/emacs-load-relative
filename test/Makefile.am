@@ -2,6 +2,9 @@ include $(top_srcdir)/common.mk
 
 PHONY=check test all check-elget test-elget help
 
+#: same thing as check
+all: check
+
 #: overall help on running the make targets
 help:
 	@echo "The main function of this Makefile is to facilitate running tests."
@@ -43,17 +46,14 @@ check: $(CHECK_FILES)
 #: Run all tests via el-get
 check-elget:
 	(cd $(top_srcdir)/test && $(EMACS) --batch --no-site-file --no-splash --load ./install-pkgs.el --load test-load.el)
-# Leave out until we can get dependecies worked out
-# #: Run all tests via el-get
-#check-elget: $(EL_GET_CHECK_FILES)s
 
 #: Run all tests with minimum verbosity
 check-short:
-	$(MAKE) check 2>&1  | ruby ../make-check-filter.rb
+	$(MAKE) check 2>&1  | ruby ./make-check-filter.rb
 
 #: Run all tests with minimum verbosity via el-get
 check-short-elget:
-	$(MAKE) check-elget 2>&1  | ruby ../make-check-filter.rb
+	$(MAKE) check-elget 2>&1  | ruby ./make-check-filter.rb
 
 test-%.run:
 	(cd $(top_srcdir)/test && $(EMACS) --batch --no-site-file --no-splash --load $(@:.run=.el))
