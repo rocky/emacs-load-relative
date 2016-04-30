@@ -6,7 +6,7 @@
 ;; URL: http://github.com/rocky/emacs-load-relative
 ;; Compatibility: GNU Emacs 23.x
 
-;; Copyright (C) 2015 Free Software Foundation, Inc
+;; Copyright (C) 2015, 2016 Free Software Foundation, Inc
 
 ;; This program is free software: you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as
@@ -139,12 +139,12 @@ methods work we will use the file-name value find via
    ;; lread.c's readevalloop sets (car current-load-list)
    ;; via macro LOADHIST_ATTACH of lisp.h. At least in Emacs
    ;; 23.0.91 and this code goes back to '93.
-   ((stringp (car-safe current-load-list)) (car current-load-list))
+   ((load-relative:file-from-load-history current-load-list))
 
    ;; load-like things. 'relative-file-expand' tests in
    ;; test/test-load.el indicates we should put this ahead of
    ;; $#.
-   (load-file-name)
+   ;; (load-file-name)
 
    ;; Pick up "name of this file as a string" which is set on
    ;; reading and persists. In contrast, load-file-name is set only
@@ -296,6 +296,14 @@ same as writing (provide 'bar-foo)
 "
   `(provide (intern (concat ,prefix (file-name-sans-extension
                                      (file-name-nondirectory (__FILE__)))))))
+
+(defun load-relative:file-from-load-history (history-list)
+  "Pick out the first string in `history-list"
+  (cond
+   ((null history-list) nil)
+   ((stringp (car history-list)) (car history-list))
+   (t (load-relative:file-from-load-history (cdr history-list)))
+  ))
 
 (provide-me)
 
