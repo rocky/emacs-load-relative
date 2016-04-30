@@ -1,4 +1,4 @@
-;; Copyright (C) 2015 Free Software Foundation, Inc
+;; Copyright (C) 2015-2016 Free Software Foundation, Inc
 
 ;; Author: Rocky Bernstein <rocky@gnu.org>
 
@@ -17,7 +17,9 @@
 
 (require 'package)
 (package-refresh-contents)
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")))
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                         ("org" . "http://orgmode.org/elpa/")
+                         ("gnu" . "https://elpa.gnu.org/packages/")))
 (condition-case nil
     (package-install 'test-simple)
   ((debug error) nil))
