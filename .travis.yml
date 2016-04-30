@@ -14,4 +14,4 @@ env:
 
 # run the tests
 script:
-  - /bin/bash ./autogen.sh && cd test && make check-elget
+  - /bin/bash ./autogen.sh && cd test && make check
