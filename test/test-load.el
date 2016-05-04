@@ -94,19 +94,4 @@
 (provide-me "my-")
 (assert-t (featurep 'my-test-load) "provide-me - prefix")
 
-(assert-nil (load-relative:file-from-load-history nil)
-	    "null load-history")
-
-(assert-equal
- "/tmp/realgud/common/track-mode.el"
- (load-relative:file-from-load-history
-  '((require . load-relative) (require . shell) (require . cl)
-    "/tmp/realgud/common/track-mode.el"))
- "load-history list with require's")
-
-(assert-equal
- "/tmp/foo.bar"
- (load-relative:file-from-load-history '("/tmp/foo.bar"))
- "load-history with single filename")
-
 (end-tests)

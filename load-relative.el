@@ -102,7 +102,6 @@
 ;; This is easier if you care about the contents of the file, rather than
 ;; a buffer.
 
-
 ;;; Code:
 
 ;;;###autoload
@@ -134,17 +133,17 @@ methods work we will use the file-name value find via
   ;; persists after loading or evaluating a file. So it would be
   ;; suitable if __FILE__ were called from inside a function.
 
-
   (cond
+
    ;; lread.c's readevalloop sets (car current-load-list)
    ;; via macro LOADHIST_ATTACH of lisp.h. At least in Emacs
    ;; 23.0.91 and this code goes back to '93.
-   ((load-relative:file-from-load-history current-load-list))
+   ((stringp (car-safe current-load-list)) (car current-load-list))
 
    ;; load-like things. 'relative-file-expand' tests in
    ;; test/test-load.el indicates we should put this ahead of
    ;; $#.
-   ;; (load-file-name)
+   (load-file-name)
 
    ;; Pick up "name of this file as a string" which is set on
    ;; reading and persists. In contrast, load-file-name is set only
@@ -160,8 +159,8 @@ methods work we will use the file-name value find via
    ;; bytecomp-filename comes from that routine?
    ((boundp 'bytecomp-filename) bytecomp-filename)
 
-   (t (symbol-file symbol)) ;; last resort
-   ))
+   (t (symbol-file symbol) ;; last resort
+      )))
 
 (defun autoload-relative (function-or-list
                           file &optional docstring interactive type
@@ -276,10 +275,6 @@ buffer-setting or buffer changing operations."
   "Run `require-relative' on each name in LIST which should be a list of
 strings, each string being the relative name of file you want to run."
   `(progn
-     (eval-when-compile
-       (require 'cl
-                (dolist (rel-file ,list)
-                  (require-relative rel-file (__FILE__) ,opt-prefix))))
      (dolist (rel-file ,list)
        (require-relative rel-file (__FILE__) ,opt-prefix))))
 
@@ -296,14 +291,6 @@ same as writing (provide 'bar-foo)
 "
   `(provide (intern (concat ,prefix (file-name-sans-extension
                                      (file-name-nondirectory (__FILE__)))))))
-
-(defun load-relative:file-from-load-history (history-list)
-  "Pick out the first string in `history-list"
-  (cond
-   ((null history-list) nil)
-   ((stringp (car history-list)) (car history-list))
-   (t (load-relative:file-from-load-history (cdr history-list)))
-  ))
 
 (provide-me)
 
