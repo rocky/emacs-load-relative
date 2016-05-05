@@ -275,6 +275,10 @@ buffer-setting or buffer changing operations."
   "Run `require-relative' on each name in LIST which should be a list of
 strings, each string being the relative name of file you want to run."
   `(progn
+     (eval-when-compile
+       (require 'cl
+                (dolist (rel-file ,list)
+                  (require-relative rel-file (__FILE__) ,opt-prefix))))
      (dolist (rel-file ,list)
        (require-relative rel-file (__FILE__) ,opt-prefix))))
 
