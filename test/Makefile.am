@@ -60,7 +60,7 @@ test-%.run:
 
 #: Run tests getting external Lisp dependencies
 test-%.elrun:
-	(cd $(top_srcdir)/test && $(EMACS) --batch --no-site-file --no-splash --load ./install-pkgs.el --load $(@:.elrun=.el))
+	(cd $(top_srcdir)/test && $(EMACS) --batch --no-site-file --no-splash --load ../el-get-install.el --load $(@:.elrun=.el))
 
 # Whatever it is you want to do, it should be forwarded to the
 # to top-level directories
