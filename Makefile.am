@@ -12,7 +12,7 @@ check: $(test-files)
 
 #: Run all tests with minimum verbosity
 check-short:
-	$(MAKE) -C test check 2>&1  | ruby make-check-filter.rb
+	$(MAKE) -C test check 2>&1  | ruby test/make-check-filter.rb
 
 
 #: same as check
