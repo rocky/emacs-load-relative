@@ -1,4 +1,6 @@
-;; Copyright (C) 2015 Free Software Foundation, Inc
+;; Can't find the "test-unit" package, so: -*- no-byte-compile:t -*-
+
+;; Copyright (C) 2015-2016 Free Software Foundation, Inc
 
 ;; Author: Rocky Bernstein <rocky@gnu.org>
 
