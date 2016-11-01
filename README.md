@@ -5,7 +5,7 @@
 The rational behind module is to be able to write small Emacs
 functions or modules in a larger multi-file Emacs package and
 facilitate running from the source tree without having to "install"
-the code or fiddle with evil *load-path*'s . See my [NYC Lisp talk](https://github.com/rocky/emacs-load-relative/wiki/NYC-Lisp-talk) for more background on this.
+the code or fiddle with evil *load-path*'s. See my [NYC Lisp talk](https://github.com/rocky/emacs-load-relative/wiki/NYC-Lisp-talk) for more background on this.
 
 
 ## Contents ##
@@ -84,7 +84,7 @@ extension) as the name of the thing you want to provide. Using this
 forces the *provide* names to be the same as the filename, but I
 consider that a good thing.
 
-*provide-me* also takes an optional string which will be prepended to the provide name. This is useful if you have a multi-file package and want the files to bue prefaced with the name of the package.
+*provide-me* also takes an optional string which will be prepended to the provide name. This is useful if you have a multi-file package and want the files to be prefaced with the name of the package.
 
 Assume your package *foo* and contains simply file `foo.el`. Then
 adding:
