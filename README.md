@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/rocky/emacs-load-relative.png)](https://travis-ci.org/rocky/emacs-load-relative)
-
 # Emacs multi-file develop/run-from-of-source routines
 
 The rational behind module is to be able to write small Emacs
@@ -133,4 +131,3 @@ relative file.
    (with-relative-file "README.md"
      (buffer-substring))
 ```
-     

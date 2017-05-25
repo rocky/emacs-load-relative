@@ -6,7 +6,7 @@
 ;; URL: http://github.com/rocky/emacs-load-relative
 ;; Compatibility: GNU Emacs 23.x
 
-;; Copyright (C) 2015, 2016 Free Software Foundation, Inc
+;; Copyright (C) 2015, 2016, 2017 Free Software Foundation, Inc
 
 ;; This program is free software: you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as
@@ -103,6 +103,12 @@
 ;; a buffer.
 
 ;;; Code:
+
+;; Press C-x C-e at the end of the next line configure the program in
+;; for building via "make" to get set up.
+;; (compile (format "EMACSLOADPATH=:%s ./autogen.sh" "."))
+;; After that you can run:
+;; (compile "make check")
 
 ;;;###autoload
 (defun __FILE__ (&optional symbol)
