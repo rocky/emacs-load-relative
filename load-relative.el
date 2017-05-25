@@ -6,7 +6,7 @@
 ;; URL: http://github.com/rocky/emacs-load-relative
 ;; Compatibility: GNU Emacs 23.x
 
-;; Copyright (C) 2015, 2016 Free Software Foundation, Inc
+;; Copyright (C) 2015, 2016, 2017 Free Software Foundation, Inc
 
 ;; This program is free software: you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as
@@ -26,12 +26,12 @@
 
 ;; Here we provide functions which facilitate writing multi-file Emacs
 ;; packages and facilitate running from the source tree without having
-;; to "install" code or fiddle with evil `load-path'. See
+;; to "install" code or fiddle with evil `load-path'.  See
 ;; https://github.com/rocky/emacs-load-relative/wiki/NYC-Lisp-talk for
 ;; the the rationale behind this.
 ;;
 ;; The functions we add are relative versions of `load', `require' and
-;; `find-file-no-select' and versions which take list arguments. We also add a
+;; `find-file-no-select' and versions which take list arguments.  We also add a
 ;; `__FILE__' function and a `provide-me' macro.
 
 ;; The latest version of this code is at:
@@ -39,13 +39,13 @@
 
 ;; `__FILE__' returns the file name that that the calling program is
 ;; running.  If you are `eval''ing a buffer then the file name of that
-;; buffer is used. The name was selected to be analogous to the name
+;; buffer is used.  The name was selected to be analogous to the name
 ;; used in C, Perl, Python, and Ruby.
 
 ;; `load-relative' loads an Emacs Lisp file relative to another
-;; (presumably currently running) Emacs Lisp file. For example suppose
+;; (presumably currently running) Emacs Lisp file.  For example suppose
 ;; you have Emacs Lisp files "foo.el" and "bar.el" in the same
-;; directory. To load "bar.el" from inside Emacs lisp file "foo.el":
+;; directory.  To load "bar.el" from inside Emacs Lisp file "foo.el":
 ;;
 ;;     (require 'load-relative)
 ;;     (load-relative "baz")
@@ -70,7 +70,7 @@
 ;; `load_relative'.
 ;;
 ;; Use `require-relative-list' when you have a list of files you want
-;; to `require'. To `require-relative' them all in one shot:
+;; to `require'.  To `require-relative' them all in one shot:
 ;;
 ;;     (require-relative-list '("dbgr-init" "dbgr-fringe"))
 ;;
@@ -83,9 +83,9 @@
 ;; the filename, but I consider that a good thing.
 ;;
 ;; The function `find-file-noselect-relative' provides a way of accessing
-;; resources which are located relative to the currently running Emacs lisp
-;; file. This is probably most useful when running Emacs as a scripting engine
-;; for batch processing or with tests cases. For example, this form will find
+;; resources which are located relative to the currently running Emacs Lisp
+;; file.  This is probably most useful when running Emacs as a scripting engine
+;; for batch processing or with tests cases.  For example, this form will find
 ;; the README file for this package.
 ;;
 ;;     (find-file-noselect-relative "README.md")
@@ -104,20 +104,26 @@
 
 ;;; Code:
 
+;; Press C-x C-e at the end of the next line configure the program in
+;; for building via "make" to get set up.
+;; (compile (format "EMACSLOADPATH=:%s ./autogen.sh" "."))
+;; After that you can run:
+;; (compile "make check")
+
 ;;;###autoload
 (defun __FILE__ (&optional symbol)
   "Return the string name of file/buffer that is currently begin executed.
 
 The first approach for getting this information is perhaps the
-most pervasive and reliable. But it the most low-level and not
+most pervasive and reliable.  But it the most low-level and not
 part of a public API, so it might change in future
-implementations. This method uses the name that is recorded by
+implementations.  This method uses the name that is recorded by
 readevalloop of `lread.c' as the car of variable
 `current-load-list'.
 
 Failing that, we use `load-file-name' which should work in some
-subset of the same places that the first method works. However
-`load-file-name' will be nil for code that is eval'd. To cover
+subset of the same places that the first method works.  However
+`load-file-name' will be nil for code that is eval'd.  To cover
 those cases, we try `buffer-file-name' which is initially
 correct, for eval'd code, but will change and may be wrong if the
 code sets or switches buffers after the initial execution.
@@ -157,6 +163,7 @@ methods work we will use the file-name value find via
    ;; When byte compiling. FIXME: use a more thorough precondition like
    ;; byte-compile-file is somehwere in the backtrace or that
    ;; bytecomp-filename comes from that routine?
+   ;; FIXME: `bytecomp-filename' doesn't exist any more (since Emacs-24.1).
    ((boundp 'bytecomp-filename) bytecomp-filename)
 
    (t (symbol-file symbol) ;; last resort
@@ -169,7 +176,7 @@ methods work we will use the file-name value find via
 the process of being loaded or eval'd.
 
 
-Define FUNCTION to autoload from FILE. FUNCTION is a symbol.
+Define FUNCTION to autoload from FILE.  FUNCTION is a symbol.
 
 FILE is a string to pass to `load'.
 
@@ -231,7 +238,7 @@ in this buffer."
 the process of being loaded or eval'd.
 
 FILE-OR-LIST is either a string or a list of strings containing
-files that you want to loaded. If SYMBOL is given, the location of
+files that you want to loaded.  If SYMBOL is given, the location of
 of the file of where that was defined (as given by `symbol-file' is used
 if other methods of finding __FILE__ don't work."
 
@@ -246,11 +253,13 @@ if other methods of finding __FILE__ don't work."
   "Expand RELATIVE-FILE relative to the Emacs Lisp code that is in
 the process of being loaded or eval'd.
 
-WARNING: it is best to to run this function before any
+WARNING: it is best to run this function before any
 buffer-setting or buffer changing operations."
   (let ((file (or opt-file (__FILE__) default-directory))
         (prefix))
     (unless file
+      ;; FIXME: Since default-directory should basically never be nil, this
+      ;; should basically never trigger!
       (error "Can't expand __FILE__ here and no file name given"))
     (setq prefix (file-name-directory file))
     (expand-file-name (concat prefix relative-file))))
@@ -258,7 +267,7 @@ buffer-setting or buffer changing operations."
 ;;;###autoload
 (defun require-relative (relative-file &optional opt-file opt-prefix)
   "Run `require' on an Emacs Lisp file relative to the Emacs Lisp code
-that is in the process of being loaded or eval'd. The symbol used in require
+that is in the process of being loaded or eval'd.  The symbol used in require
 is the base file name (without directory or file extension) treated as a
 symbol.
 
@@ -285,14 +294,13 @@ strings, each string being the relative name of file you want to run."
 ;;;###autoload
 (defmacro provide-me ( &optional prefix )
   "Call `provide' with the feature's symbol name made from
-source-code's file basename sans extension. For example if you
+source-code's file basename sans extension.  For example if you
 write (provide-me) inside file ~/lisp/foo.el, this is the same as
 writing: (provide \\='foo).
 
 With a prefix, that prefix is prepended to the `provide' So in
 the previous example, if you write (provide-me \"bar-\") this is the
-same as writing (provide \\='bar-foo)
-"
+same as writing (provide \\='bar-foo)."
   `(provide (intern (concat ,prefix (file-name-sans-extension
                                      (file-name-nondirectory (__FILE__)))))))
 
