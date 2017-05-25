@@ -1,7 +1,7 @@
 ;;; load-relative.el --- relative file load (within a multi-file Emacs package)
 
 ;; Author: Rocky Bernstein <rocky@gnu.org>
-;; Version: 1.2
+;; Version: 1.3
 ;; Keywords: internal
 ;; URL: http://github.com/rocky/emacs-load-relative
 ;; Compatibility: GNU Emacs 23.x
@@ -104,7 +104,7 @@
 
 ;;; Code:
 
-;; Press C-x C-e at the end of the next line configure the program in
+;; Press C-x C-e at the end of the next line configure the program in GNU emacs
 ;; for building via "make" to get set up.
 ;; (compile (format "EMACSLOADPATH=:%s ./autogen.sh" "."))
 ;; After that you can run:
