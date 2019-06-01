@@ -1,7 +1,7 @@
-;;; load-relative.el --- relative file load (within a multi-file Emacs package)
+;;; load-relative.el --- Relative file load (within a multi-file Emacs package) -*- lexical-binding: t -*-
 
 ;; Author: Rocky Bernstein <rocky@gnu.org>
-;; Version: 1.3
+;; Version: 1.3.1
 ;; Keywords: internal
 ;; URL: http://github.com/rocky/emacs-load-relative
 ;; Compatibility: GNU Emacs 23.x
@@ -122,9 +122,9 @@ readevalloop of `lread.c' as the car of variable
 `current-load-list'.
 
 Failing that, we use `load-file-name' which should work in some
-subset of the same places that the first method works. However
-`load-file-name' will be nil for code that is eval'd. To cover
-those cases, we try `buffer-file-name' which is initially
+subset of the same places that the first method works.  However
+`load-file-name' will be nil for code that is eval'd.  To cover
+those cases, we try function `buffer-file-name' which is initially
 correct, for eval'd code, but will change and may be wrong if the
 code sets or switches buffers after the initial execution.
 
@@ -173,8 +173,8 @@ methods work we will use the file-name value find via
                           file &optional docstring interactive type
                           symbol)
   ;; FIXME: Docstring talks of FUNCTION but argname is `function-or-list'.
-  "Autoload an Emacs Lisp file relative to Emacs Lisp code that is in
-the process of being loaded or eval'd.
+  "Autoload an Emacs Lisp file relative to Emacs Lisp code that is in the process
+of being loaded or eval'd.
 
 
 Define FUNCTION to autoload from FILE.  FUNCTION is a symbol.
