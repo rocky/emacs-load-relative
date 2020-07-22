@@ -15,7 +15,7 @@ the code or fiddle with evil *load-path*'s. See my [NYC Lisp talk](https://githu
 * [require-relative](https://github.com/rocky/emacs-load-relative#require-relative-require-relative-list)
 * [provide-me](https://github.com/rocky/emacs-load-relative#provide-me)
 
-The latest version is at http://github.com/rocky/emacs-load-relative
+The latest version is at https://github.com/rocky/emacs-load-relative
 
 ## \__FILE__
 
@@ -133,4 +133,3 @@ relative file.
    (with-relative-file "README.md"
      (buffer-substring))
 ```
-     

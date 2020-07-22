@@ -3,10 +3,10 @@
 ;; Author: Rocky Bernstein <rocky@gnu.org>
 ;; Version: 1.3.1
 ;; Keywords: internal
-;; URL: http://github.com/rocky/emacs-load-relative
+;; URL: https://github.com/rocky/emacs-load-relative
 ;; Compatibility: GNU Emacs 23.x
 
-;; Copyright (C) 2015-2019 Free Software Foundation, Inc
+;; Copyright (C) 2015-2020 Free Software Foundation, Inc
 
 ;; This program is free software: you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as
@@ -35,7 +35,7 @@
 ;; `__FILE__' function and a `provide-me' macro.
 
 ;; The latest version of this code is at:
-;;     http://github.com/rocky/emacs-load-relative/
+;;     https://github.com/rocky/emacs-load-relative/
 
 ;; `__FILE__' returns the file name that that the calling program is
 ;; running.  If you are `eval''ing a buffer then the file name of that
