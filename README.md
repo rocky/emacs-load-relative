@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/rocky/emacs-load-relative.png)](https://travis-ci.org/rocky/emacs-load-relative)
+![Emacs CI](https://github.com/rocky/emacs-load-relative/workflows/Emacs%20CI/badge.svg)
 
 # Emacs multi-file develop/run-from-of-source routines
 
