@@ -278,9 +278,12 @@ symbol.
 
 WARNING: it is best to to run this function before any
 buffer-setting or buffer changing operations."
-  (let ((require-string-name
-         (concat opt-prefix (file-name-sans-extension
-                             (file-name-nondirectory relative-file)))))
+  (let* ((relative-file (if (symbolp relative-file)
+                            (symbol-name relative-file)
+                          relative-file))
+         (require-string-name
+          (concat opt-prefix (file-name-sans-extension
+                              (file-name-nondirectory relative-file)))))
     (require (intern require-string-name)
              (relative-expand-file-name relative-file opt-file))))
 
