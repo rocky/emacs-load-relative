@@ -1,3 +1,8 @@
+2015-04-26  Stefan Monnier  <monnier@iro.umontreal.ca>
+
+	* load-relative.el (__FILE__): Mention the bytecomp-filename problem.
+	Fix other details mentioned by `checkdoc-current-buffer'.
+
 2010-09-30  rocky <rocky@gnu.org>
 
 	* .gitignore: git Administrivia.
@@ -9,7 +14,7 @@
 
 2010-09-30  rocky <rocky@gnu.org>
 
-	* .gitignore, COPYING, Makefile.am, README, configure.ac: 
+	* .gitignore, COPYING, Makefile.am, README, configure.ac:
 	Administrivia. Add COPYING, update README and .gitignore, bump
 	version number.
 

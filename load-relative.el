@@ -1,7 +1,7 @@
 ;;; load-relative.el --- Relative file load (within a multi-file Emacs package) -*- lexical-binding: t -*-
 
 ;; Author: Rocky Bernstein <rocky@gnu.org>
-;; Version: 1.3.1
+;; Version: 1.3.2
 ;; Keywords: internal
 ;; URL: https://github.com/rocky/emacs-load-relative
 ;; Compatibility: GNU Emacs 23.x
