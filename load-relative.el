@@ -6,7 +6,7 @@
 ;; URL: https://github.com/rocky/emacs-load-relative
 ;; Compatibility: GNU Emacs 23.x
 
-;; Copyright (C) 2015-2020 Free Software Foundation, Inc
+;; Copyright (C) 2015-2020, 2023 Free Software Foundation, Inc
 
 ;; This program is free software: you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as
